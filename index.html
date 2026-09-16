@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smoosh Food Truck</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>SMOOSH</h1>
+        <p>Burgers. Dogs. Smooshed Right.</p>
+    </header>
+
+    <main>
+
+        <section>
+
+            <h2>The Smoosh</h2>
+
+            <img
+                src="images/thesmoosh.png"
+                alt="The Smoosh burger"
+            >
+
+            <p>
+                The Smoosh is our signature burger made with two smashed beef patties,
+                melted American cheese, grilled onions, pickles, and Smoosh sauce on a
+                toasted bun.
+            </p>
+
+            <p>
+                Price: $8.99
+            </p>
+
+            <label for="quantity">
+                Quantity:
+            </label>
+
+            <input
+                type="number"
+                id="quantity"
+                value="1"
+                min="1"
+            >
+
+            <button
+                type="button"
+                onclick="addToOrder(8.99)"
+            >
+                Add to Order
+            </button>
+
+            <div id="orderSummary"></div>
+
+        </section>
+
+
+        <section>
+
+            <h2>What the Crawlers Are Saying</h2>
+
+            <p>
+                Want to see what customers think about Smoosh?
+            </p>
+
+            <a href="reviews.html">
+                Reviews & Feedback
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            Smoosh Food Truck | Corpus Christi, Texas
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

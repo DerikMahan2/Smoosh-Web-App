@@ -1,0 +1,768 @@
+/* =========================================
+   SMOOSH FOOD TRUCK
+   Industrial Dungeon / Game HUD Theme
+   ========================================= */
+
+
+/* =========================================
+   GLOBAL RESET
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    background:
+        radial-gradient(
+            circle at top center,
+            #203746 0%,
+            #151b21 22%,
+            #111418 45%,
+            #0c0f12 100%
+        );
+
+    background-attachment: fixed;
+
+    color: #f2f3f4;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+header {
+    text-align: center;
+
+    padding:
+        42px
+        20px
+        32px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #18232b 0%,
+            #11171c 55%,
+            #0e1215 100%
+        );
+
+    border-bottom:
+        2px solid #ff9f1c;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.65);
+}
+
+header h1 {
+    margin: 0;
+
+    color: #ff9f1c;
+
+    font-size: 3.5rem;
+
+    letter-spacing: 10px;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        0 0 8px rgba(255, 159, 28, 0.50),
+        0 0 18px rgba(255, 159, 28, 0.16),
+        3px 3px 0 #000000;
+}
+
+header p {
+    margin:
+        8px
+        0
+        0;
+
+    color: #a8d941;
+
+    font-size: 1.05rem;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   MAIN PAGE CONTAINER
+   ========================================= */
+
+main {
+    width: 90%;
+
+    max-width: 1100px;
+
+    margin:
+        32px
+        auto
+        50px;
+}
+
+
+/* =========================================
+   CONTENT PANELS
+   ========================================= */
+
+section {
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            #1b242b 0%,
+            #151c21 50%,
+            #11171b 100%
+        );
+
+    border:
+        1px solid #35424d;
+
+    border-top:
+        3px solid #ff9f1c;
+
+    margin:
+        24px
+        auto;
+
+    padding:
+        30px;
+
+    text-align: center;
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.48),
+        inset 0 0 25px rgba(47, 111, 103, 0.07);
+}
+
+
+/* Small HUD-style accent line */
+
+section::after {
+    content: "";
+
+    display: block;
+
+    width: 80px;
+
+    height: 3px;
+
+    margin:
+        28px
+        auto
+        0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #2f6f67,
+            #a8d941,
+            #2f6f67,
+            transparent
+        );
+
+    opacity: 0.65;
+}
+
+
+/* Remove HUD accent from simple navigation panel */
+
+main > section:last-of-type::after {
+    display: none;
+}
+
+
+/* =========================================
+   HEADINGS
+   ========================================= */
+
+h2 {
+    margin:
+        0
+        0
+        24px;
+
+    color: #ff9f1c;
+
+    font-size: 2rem;
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        0 0 10px rgba(255, 159, 28, 0.18);
+}
+
+h3 {
+    color: #a8d941;
+
+    margin-top: 0;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================
+   GENERAL TEXT
+   ========================================= */
+
+p {
+    color: #f2f3f4;
+}
+
+section p {
+    max-width: 850px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Longer descriptions remain easier to read
+   while the overall page remains centered */
+
+section > p {
+    text-align: left;
+}
+
+
+/* =========================================
+   FEATURED PRODUCT
+   ========================================= */
+
+main > section:first-of-type {
+    max-width: 900px;
+}
+
+
+/* Product image */
+
+section img {
+    display: block;
+
+    width: 100%;
+
+    max-width: 420px;
+
+    height: auto;
+
+    margin:
+        18px
+        auto
+        24px;
+
+    border:
+        3px solid #2f6f67;
+
+    box-shadow:
+        0 0 0 4px #101418,
+        0 0 22px rgba(47, 111, 103, 0.42);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+section img:hover {
+    transform:
+        scale(1.015);
+
+    box-shadow:
+        0 0 0 4px #101418,
+        0 0 28px rgba(168, 217, 65, 0.24);
+}
+
+
+/* Featured product description */
+
+main > section:first-of-type > p:first-of-type {
+    max-width: 720px;
+
+    margin-top: 18px;
+
+    margin-bottom: 10px;
+}
+
+
+/* Featured product price */
+
+main > section:first-of-type > p:nth-of-type(2) {
+    margin:
+        12px
+        auto
+        10px;
+
+    color: #ff9f1c;
+
+    font-size: 1.3rem;
+
+    font-weight: bold;
+
+    text-align: center;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================
+   FORM CONTROLS
+   ========================================= */
+
+label {
+    color: #f2f3f4;
+
+    font-weight: bold;
+}
+
+input,
+select,
+textarea {
+    background-color: #0e1418;
+
+    color: #f2f3f4;
+
+    border:
+        1px solid #4c5a65;
+
+    padding:
+        10px;
+
+    font-size: 1rem;
+
+    margin:
+        5px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+    background-color: #11191e;
+
+    border-color: #62727f;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+
+    border-color: #a8d941;
+
+    box-shadow:
+        0 0 10px rgba(168, 217, 65, 0.32);
+}
+
+input[type="number"] {
+    width: 80px;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+button {
+    background:
+        linear-gradient(
+            180deg,
+            #ffb13b 0%,
+            #ff9f1c 55%,
+            #e48300 100%
+        );
+
+    color: #111418;
+
+    border:
+        2px solid #ffc35c;
+
+    padding:
+        12px
+        24px;
+
+    margin:
+        12px;
+
+    font-size: 0.95rem;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.2px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 0 #8d5200,
+        0 8px 16px rgba(0, 0, 0, 0.45);
+
+    transition:
+        transform 0.18s ease,
+        background-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+button:hover {
+    background: #a8d941;
+
+    border-color: #d8ff78;
+
+    box-shadow:
+        0 4px 0 #587816,
+        0 0 18px rgba(168, 217, 65, 0.42);
+
+    transform:
+        translateY(-2px);
+}
+
+button:active {
+    transform:
+        translateY(2px);
+
+    box-shadow:
+        0 2px 0 #8d5200;
+}
+
+
+/* =========================================
+   LINKS
+   ========================================= */
+
+a {
+    color: #a8d941;
+
+    font-weight: bold;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        text-shadow 0.2s ease;
+}
+
+a:hover {
+    color: #ff9f1c;
+
+    text-decoration: none;
+
+    text-shadow:
+        0 0 8px rgba(255, 159, 28, 0.35);
+}
+
+
+/* =========================================
+   ORDER SUMMARY
+   AND REVIEW CARDS
+   ========================================= */
+
+section > div {
+    background:
+        linear-gradient(
+            90deg,
+            #12191e,
+            #10161a
+        );
+
+    border-left:
+        4px solid #2f6f67;
+
+    max-width:
+        800px;
+
+    margin:
+        18px
+        auto;
+
+    padding:
+        18px
+        22px;
+
+    text-align:
+        left;
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.22);
+}
+
+
+/* Highlight order confirmation */
+
+#orderSummary {
+    border-left-color: #a8d941;
+
+    margin-top: 22px;
+}
+
+#orderSummary h3,
+#feedbackMessage h3 {
+    color: #a8d941;
+}
+
+
+/* Hide empty JavaScript output areas */
+
+#orderSummary:empty,
+#feedbackMessage:empty {
+    display: none;
+}
+
+
+/* =========================================
+   FEEDBACK FORM
+   ========================================= */
+
+textarea {
+    display: block;
+
+    width: 90%;
+
+    max-width: 600px;
+
+    min-height: 120px;
+
+    margin:
+        6px
+        auto;
+
+    resize: vertical;
+}
+
+
+/* Feedback response */
+
+#feedbackMessage {
+    border-left-color: #a8d941;
+
+    margin-top: 25px;
+}
+
+
+/* =========================================
+   REVIEW / NAVIGATION PANELS
+   ========================================= */
+
+main > section:last-of-type > p {
+    text-align: center;
+}
+
+
+/* Center homepage review invitation */
+
+main > section:nth-of-type(2) > p {
+    text-align: center;
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+footer {
+    text-align: center;
+
+    padding:
+        24px;
+
+    margin-top:
+        40px;
+
+    background:
+        #090d10;
+
+    border-top:
+        2px solid #2f6f67;
+
+    color:
+        #aab4be;
+
+    box-shadow:
+        0 -5px 18px rgba(0, 0, 0, 0.28);
+}
+
+footer p {
+    margin: 0;
+
+    color: #aab4be;
+
+    font-size: 0.9rem;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   FUTURE TWO-COLUMN MENU GRID
+   ========================================= */
+
+.menu-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap:
+        24px;
+
+    margin-top:
+        28px;
+}
+
+
+/* Future menu product cards */
+
+.menu-card {
+    background:
+        linear-gradient(
+            145deg,
+            #171f25,
+            #11171b
+        );
+
+    border:
+        1px solid #35424d;
+
+    border-top:
+        3px solid #2f6f67;
+
+    padding:
+        22px;
+
+    text-align:
+        center;
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.38);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.menu-card:hover {
+    transform:
+        translateY(-3px);
+
+    border-top-color:
+        #ff9f1c;
+
+    box-shadow:
+        0 10px 22px rgba(0, 0, 0, 0.48),
+        0 0 18px rgba(255, 159, 28, 0.14);
+}
+
+
+/* Future menu card images */
+
+.menu-card img {
+    width: 100%;
+
+    max-width: 100%;
+
+    margin:
+        0
+        auto
+        18px;
+}
+
+
+/* =========================================
+   RESPONSIVE / MOBILE DESIGN
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    header {
+        padding:
+            32px
+            15px
+            26px;
+    }
+
+    header h1 {
+        font-size: 2.4rem;
+
+        letter-spacing: 6px;
+    }
+
+    header p {
+        font-size: 0.9rem;
+
+        letter-spacing: 1px;
+    }
+
+    main {
+        width: 94%;
+
+        margin-top: 22px;
+    }
+
+    section {
+        padding:
+            22px
+            18px;
+    }
+
+    h2 {
+        font-size: 1.55rem;
+    }
+
+    section img {
+        max-width: 100%;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    input,
+    select {
+        max-width: 90%;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    button {
+        width: auto;
+
+        max-width: 100%;
+    }
+}

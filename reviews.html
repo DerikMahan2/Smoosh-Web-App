@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smoosh Reviews & Feedback</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+
+        <h1>SMOOSH</h1>
+
+        <p>
+            Reviews & Feedback
+        </p>
+
+    </header>
+
+
+    <main>
+
+
+        <section>
+
+            <h2>
+                What the Crawlers Are Saying
+            </h2>
+
+
+            <div>
+
+                <h3>
+                    Mike R.
+                </h3>
+
+                <p>
+                    Rating: 5/5
+                </p>
+
+                <p>
+                    The Smoosh was awesome. The crispy edges on the burger,
+                    grilled onions, and sauce worked perfectly together.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Sarah T.
+                </h3>
+
+                <p>
+                    Rating: 5/5
+                </p>
+
+                <p>
+                    Great burger and easy ordering experience. I would
+                    definitely order from Smoosh again.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section>
+
+            <h2>
+                Leave Us Feedback
+            </h2>
+
+
+            <label for="customerName">
+                Name:
+            </label>
+
+            <input
+                type="text"
+                id="customerName"
+            >
+
+
+            <br><br>
+
+
+            <label for="rating">
+                Rating:
+            </label>
+
+            <select id="rating">
+
+                <option value="5">
+                    5 - Excellent
+                </option>
+
+                <option value="4">
+                    4 - Very Good
+                </option>
+
+                <option value="3">
+                    3 - Good
+                </option>
+
+                <option value="2">
+                    2 - Fair
+                </option>
+
+                <option value="1">
+                    1 - Poor
+                </option>
+
+            </select>
+
+
+            <br><br>
+
+
+            <label for="feedback">
+                Feedback:
+            </label>
+
+
+            <textarea
+                id="feedback"
+                rows="5"
+                cols="40"
+            ></textarea>
+
+
+            <br>
+
+
+            <button
+                type="button"
+                onclick="submitFeedback()"
+            >
+                Submit Feedback
+            </button>
+
+
+            <div id="feedbackMessage"></div>
+
+        </section>
+
+
+        <section>
+
+            <p>
+                <a href="index.html">
+                    Back to The Smoosh
+                </a>
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            Smoosh Food Truck | Corpus Christi, Texas
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
