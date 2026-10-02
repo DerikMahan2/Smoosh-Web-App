@@ -1,0 +1,20 @@
+[{
+  "_id": {
+    "$oid": "6abff86f1cca33177e42794f"
+  },
+  "customerName": "Mike R.",
+  "rating": 5,
+  "feedback": "The Smoosh was awesome. The crispy edges on the burger, grilled onions, and sauce worked perfectly together.",
+  "productName": "The Smoosh",
+  "approved": true
+},
+{
+  "_id": {
+    "$oid": "6abff8791cca33177e427951"
+  },
+  "customerName": "Sarah T.",
+  "rating": 5,
+  "feedback": "Great burger and easy ordering experience. I would definitely order from Smoosh again.",
+  "productName": "The Smoosh",
+  "approved": true
+}]

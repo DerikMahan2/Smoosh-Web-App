@@ -701,6 +701,83 @@ footer p {
         18px;
 }
 
+/* =========================================
+   ASSIGNMENT 3 - INTERACTIVE PRODUCT DETAILS
+   ========================================= */
+
+.product-details {
+    display: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            #12191e,
+            #10161a
+        );
+
+    border-left:
+        4px solid #a8d941;
+
+    max-width:
+        700px;
+
+    margin:
+        16px auto;
+
+    padding:
+        14px 18px;
+
+    text-align:
+        left;
+
+    color:
+        #f2f3f4;
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.22);
+}
+
+
+/* =========================================
+   ORDER TOTAL
+   ========================================= */
+
+#orderTotal {
+    border-left-color:
+        #ff9f1c;
+
+    margin-top:
+        18px;
+}
+
+#orderTotal p {
+    text-align:
+        center;
+
+    color:
+        #ff9f1c;
+
+    font-size:
+        1.15rem;
+}
+
+
+/* =========================================
+   ORDER SUBMISSION MESSAGE
+   ========================================= */
+
+#orderMessage {
+    border-left-color:
+        #a8d941;
+
+    margin-top:
+        24px;
+}
+
+#orderMessage:empty {
+    display:
+        none;
+}
 
 /* =========================================
    RESPONSIVE / MOBILE DESIGN

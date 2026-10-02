@@ -12,61 +12,463 @@
 
 <body>
 
+    <!-- =========================================
+         HEADER
+         ========================================= -->
+
     <header>
+
         <h1>SMOOSH</h1>
-        <p>Burgers. Dogs. Smooshed Right.</p>
+
+        <p>
+            Burgers. Dogs. Smooshed Right.
+        </p>
+
     </header>
+
+
+    <!-- =========================================
+         MAIN CONTENT
+         ========================================= -->
 
     <main>
 
+
+        <!-- =====================================
+             INTRODUCTION
+             ===================================== -->
+
         <section>
 
-            <h2>The Smoosh</h2>
-
-            <img
-                src="images/thesmoosh.png"
-                alt="The Smoosh burger"
-            >
+            <h2>
+                Enter the Smoosh
+            </h2>
 
             <p>
-                The Smoosh is our signature burger made with two smashed beef patties,
-                melted American cheese, grilled onions, pickles, and Smoosh sauce on a
-                toasted bun.
+                Welcome to Smoosh. Choose your food, select your quantity,
+                and build your order before heading to the truck.
             </p>
 
             <p>
-                Price: $8.99
+                Every item is made to order. Add what you want below,
+                review your order, and provide your pickup information
+                when you are ready.
             </p>
-
-            <label for="quantity">
-                Quantity:
-            </label>
-
-            <input
-                type="number"
-                id="quantity"
-                value="1"
-                min="1"
-            >
-
-            <button
-                type="button"
-                onclick="addToOrder(8.99)"
-            >
-                Add to Order
-            </button>
-
-            <div id="orderSummary"></div>
 
         </section>
 
 
+        <!-- =====================================
+             MENU
+             ===================================== -->
+
         <section>
 
-            <h2>What the Crawlers Are Saying</h2>
+            <h2>
+                The Menu
+            </h2>
+
+            <div class="menu-grid">
+
+
+                <!-- =================================
+                     THE SMOOSH
+                     ================================= -->
+
+                <div class="menu-card">
+
+                    <h3>
+                        The Smoosh
+                    </h3>
+
+                    <img
+                        src="images/thesmoosh.png"
+                        alt="The Smoosh burger"
+                        onmouseenter="showProductInfo('smooshDetails')"
+                        onmouseleave="hideProductInfo('smooshDetails')"
+                    >
+
+                    <p>
+                        Two smashed beef patties, melted American cheese,
+                        grilled onions, pickles, and Smoosh sauce on a
+                        toasted bun.
+                    </p>
+
+                    <p>
+                        <strong>
+                            $8.99
+                        </strong>
+                    </p>
+
+                    <div
+                        id="smooshDetails"
+                        class="product-details"
+                    >
+                        Two crispy-edged smash patties layered with cheese
+                        and finished with our signature Smoosh sauce.
+                    </div>
+
+                    <label for="quantitySmoosh">
+                        Quantity:
+                    </label>
+
+                    <input
+                        type="number"
+                        id="quantitySmoosh"
+                        value="1"
+                        min="1"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="addToOrder(
+                            'The Smoosh',
+                            8.99,
+                            'quantitySmoosh'
+                        )"
+                    >
+                        Add to Order
+                    </button>
+
+                </div>
+
+
+                <!-- =================================
+                     DOUBLE SMOOSH
+                     ================================= -->
+
+                <div class="menu-card">
+
+                    <h3>
+                        The Double Smoosh
+                    </h3>
+
+                    <img
+                        src="images/doublesmoosh.png"
+                        alt="The Double Smoosh burger"
+                        onmouseenter="showProductInfo('doubleDetails')"
+                        onmouseleave="hideProductInfo('doubleDetails')"
+                    >
+
+                    <p>
+                        A bigger version of the original Smoosh with
+                        extra smashed beef, extra cheese, grilled onions,
+                        pickles, and Smoosh sauce.
+                    </p>
+
+                    <p>
+                        <strong>
+                            $11.99
+                        </strong>
+                    </p>
+
+                    <div
+                        id="doubleDetails"
+                        class="product-details"
+                    >
+                        Built for a bigger appetite with additional beef
+                        and cheese while keeping the original Smoosh flavor.
+                    </div>
+
+                    <label for="quantityDouble">
+                        Quantity:
+                    </label>
+
+                    <input
+                        type="number"
+                        id="quantityDouble"
+                        value="1"
+                        min="1"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="addToOrder(
+                            'The Double Smoosh',
+                            11.99,
+                            'quantityDouble'
+                        )"
+                    >
+                        Add to Order
+                    </button>
+
+                </div>
+
+
+                <!-- =================================
+                     SPICY SMOOSH
+                     ================================= -->
+
+                <div class="menu-card">
+
+                    <h3>
+                        The Spicy Smoosh
+                    </h3>
+
+                    <img
+                        src="images/spicysmoosh.png"
+                        alt="The Spicy Smoosh burger"
+                        onmouseenter="showProductInfo('spicyDetails')"
+                        onmouseleave="hideProductInfo('spicyDetails')"
+                    >
+
+                    <p>
+                        Two smashed beef patties, cheese, grilled onions,
+                        pickles, spicy peppers, and a hotter version of
+                        Smoosh sauce.
+                    </p>
+
+                    <p>
+                        <strong>
+                            $9.99
+                        </strong>
+                    </p>
+
+                    <div
+                        id="spicyDetails"
+                        class="product-details"
+                    >
+                        Everything you like about The Smoosh with an
+                        extra kick for customers who want some heat.
+                    </div>
+
+                    <label for="quantitySpicy">
+                        Quantity:
+                    </label>
+
+                    <input
+                        type="number"
+                        id="quantitySpicy"
+                        value="1"
+                        min="1"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="addToOrder(
+                            'The Spicy Smoosh',
+                            9.99,
+                            'quantitySpicy'
+                        )"
+                    >
+                        Add to Order
+                    </button>
+
+                </div>
+
+
+                <!-- =================================
+                     THE CRAWLER
+                     ================================= -->
+
+                <div class="menu-card">
+
+                    <h3>
+                        The Crawler
+                    </h3>
+
+                    <img
+                        src="images/thecrawler.png"
+                        alt="The Crawler hot dog"
+                        onmouseenter="showProductInfo('crawlerDetails')"
+                        onmouseleave="hideProductInfo('crawlerDetails')"
+                    >
+
+                    <p>
+                        A Smoosh-style loaded hot dog served on a toasted bun
+                        and finished with toppings worthy of The Crawler name.
+                    </p>
+
+                    <p>
+                        <strong>
+                            $7.99
+                        </strong>
+                    </p>
+
+                    <div
+                        id="crawlerDetails"
+                        class="product-details"
+                    >
+                        Our signature hot dog option for customers who want
+                        something different from a burger without leaving
+                        the Smoosh experience.
+                    </div>
+
+                    <label for="quantityCrawler">
+                        Quantity:
+                    </label>
+
+                    <input
+                        type="number"
+                        id="quantityCrawler"
+                        value="1"
+                        min="1"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="addToOrder(
+                            'The Crawler',
+                            7.99,
+                            'quantityCrawler'
+                        )"
+                    >
+                        Add to Order
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             CURRENT ORDER
+             ===================================== -->
+
+        <section>
+
+            <h2>
+                Your Order
+            </h2>
 
             <p>
-                Want to see what customers think about Smoosh?
+                Items you add from the menu will appear below.
+            </p>
+
+            <div id="orderSummary">
+
+                <p>
+                    Your order is currently empty.
+                </p>
+
+            </div>
+
+            <div id="orderTotal">
+
+                <p>
+                    <strong>
+                        Order Total: $0.00
+                    </strong>
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                onclick="clearOrder()"
+            >
+                Clear Order
+            </button>
+
+        </section>
+
+
+        <!-- =====================================
+             CUSTOMER INFORMATION
+             ===================================== -->
+
+        <section>
+
+            <h2>
+                Pickup Information
+            </h2>
+
+            <p>
+                Tell us who is picking up the order. This information
+                will eventually be associated with the order stored
+                in the Smoosh database.
+            </p>
+
+
+            <label for="customerName">
+                Name:
+            </label>
+
+            <br>
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Enter your name"
+            >
+
+
+            <br><br>
+
+
+            <label for="customerPhone">
+                Phone Number:
+            </label>
+
+            <br>
+
+            <input
+                type="tel"
+                id="customerPhone"
+                placeholder="361-555-1234"
+            >
+
+
+            <br><br>
+
+
+            <label for="customerEmail">
+                Email (Optional):
+            </label>
+
+            <br>
+
+            <input
+                type="email"
+                id="customerEmail"
+                placeholder="name@example.com"
+            >
+
+
+            <br><br>
+
+
+            <label for="specialInstructions">
+                Special Instructions:
+            </label>
+
+            <textarea
+                id="specialInstructions"
+                rows="5"
+                cols="40"
+                placeholder="Allergies, modifications, or other instructions"
+            ></textarea>
+
+
+            <button
+                type="button"
+                onclick="submitOrder()"
+            >
+                Submit Order
+            </button>
+
+
+            <div id="orderMessage"></div>
+
+        </section>
+
+
+        <!-- =====================================
+             REVIEWS
+             ===================================== -->
+
+        <section>
+
+            <h2>
+                What the Crawlers Are Saying
+            </h2>
+
+            <p>
+                Already survived a Smoosh encounter?
+                See what other customers have said or leave us feedback.
             </p>
 
             <a href="reviews.html">
@@ -75,8 +477,13 @@
 
         </section>
 
+
     </main>
 
+
+    <!-- =========================================
+         FOOTER
+         ========================================= -->
 
     <footer>
 
@@ -86,6 +493,10 @@
 
     </footer>
 
+
+    <!-- =========================================
+         JAVASCRIPT
+         ========================================= -->
 
     <script src="script.js"></script>
 

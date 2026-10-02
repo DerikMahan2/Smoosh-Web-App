@@ -1,0 +1,23 @@
+[{
+  "_id": {
+    "$oid": "6abff8191cca33177e42794c"
+  },
+  "customerName": "Derik Mahan",
+  "phone": "361-555-1234",
+  "email": null,
+  "items": [
+    {
+      "productName": "The Smoosh",
+      "quantity": 2,
+      "price": 8.99
+    },
+    {
+      "productName": "The Crawler",
+      "quantity": 1,
+      "price": 7.99
+    }
+  ],
+  "orderTotal": 25.97,
+  "specialInstructions": "No pickles on one burger.",
+  "submitted": true
+}]

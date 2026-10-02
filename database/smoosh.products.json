@@ -1,0 +1,44 @@
+[{
+  "_id": {
+    "$oid": "6abff76e1cca33177e427943"
+  },
+  "name": "The Smoosh",
+  "description": "Two smashed beef patties, melted American cheese, grilled onions, pickles, and Smoosh sauce on a toasted bun.",
+  "category": "Burger",
+  "price": 8.99,
+  "available": true,
+  "image": "images/thesmoosh.png"
+},
+{
+  "_id": {
+    "$oid": "6abff7a11cca33177e427945"
+  },
+  "name": "The Double Smoosh",
+  "description": "A bigger version of the original Smoosh with extra smashed beef, extra cheese, grilled onions, pickles, and Smoosh sauce.",
+  "category": "Burger",
+  "price": 11.99,
+  "available": true,
+  "image": "images/doublesmoosh.png"
+},
+{
+  "_id": {
+    "$oid": "6abff7af1cca33177e427947"
+  },
+  "name": "The Spicy Smoosh",
+  "description": "Two smashed beef patties, cheese, grilled onions, pickles, spicy peppers, and a hotter version of Smoosh sauce.",
+  "category": "Burger",
+  "price": 9.99,
+  "available": true,
+  "image": "images/spicysmoosh.png"
+},
+{
+  "_id": {
+    "$oid": "6abff7ba1cca33177e427949"
+  },
+  "name": "The Crawler",
+  "description": "A Smoosh-style loaded hot dog served on a toasted bun and finished with toppings worthy of The Crawler name.",
+  "category": "Hot Dog",
+  "price": 7.99,
+  "available": true,
+  "image": "images/thecrawler.png"
+}]
