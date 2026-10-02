@@ -5,26 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Smoosh Reviews & Feedback</title>
+    <title>Smoosh - Reviews & Feedback</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+    <!-- =========================================
+         HEADER
+         ========================================= -->
+
     <header>
 
         <h1>SMOOSH</h1>
 
         <p>
-            Reviews & Feedback
+            Burgers. Dogs. Smooshed Right.
         </p>
 
     </header>
 
 
+    <!-- =========================================
+         NAVIGATION
+         ========================================= -->
+
+    <nav class="main-nav">
+
+        <a href="index.html">
+            Menu
+        </a>
+
+        <a href="cart.html">
+            Cart
+        </a>
+
+        <a
+            href="reviews.html"
+            class="active"
+        >
+            Reviews
+        </a>
+
+    </nav>
+
+
+    <!-- =========================================
+         MAIN CONTENT
+         ========================================= -->
+
     <main>
 
+
+        <!-- =====================================
+             EXISTING REVIEWS
+             ===================================== -->
 
         <section>
 
@@ -32,14 +68,18 @@
                 What the Crawlers Are Saying
             </h2>
 
+            <p class="page-intro">
+                See what customers have said about their Smoosh experience.
+            </p>
 
-            <div>
+
+            <div class="review-card">
 
                 <h3>
                     Mike R.
                 </h3>
 
-                <p>
+                <p class="review-rating">
                     Rating: 5/5
                 </p>
 
@@ -51,19 +91,19 @@
             </div>
 
 
-            <div>
+            <div class="review-card">
 
                 <h3>
                     Sarah T.
                 </h3>
 
-                <p>
+                <p class="review-rating">
                     Rating: 5/5
                 </p>
 
                 <p>
-                    Great burger and easy ordering experience. I would
-                    definitely order from Smoosh again.
+                    Great burger and easy ordering experience.
+                    I would definitely order from Smoosh again.
                 </p>
 
             </div>
@@ -71,99 +111,124 @@
         </section>
 
 
+        <!-- =====================================
+             FEEDBACK FORM
+             ===================================== -->
+
         <section>
 
             <h2>
                 Leave Us Feedback
             </h2>
 
-
-            <label for="customerName">
-                Name:
-            </label>
-
-            <input
-                type="text"
-                id="customerName"
-            >
+            <p class="page-intro">
+                Tell us how your Smoosh experience went.
+            </p>
 
 
-            <br><br>
+            <div class="review-form">
 
 
-            <label for="rating">
-                Rating:
-            </label>
+                <label for="customerName">
+                    Name:
+                </label>
 
-            <select id="rating">
-
-                <option value="5">
-                    5 - Excellent
-                </option>
-
-                <option value="4">
-                    4 - Very Good
-                </option>
-
-                <option value="3">
-                    3 - Good
-                </option>
-
-                <option value="2">
-                    2 - Fair
-                </option>
-
-                <option value="1">
-                    1 - Poor
-                </option>
-
-            </select>
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Enter your name"
+                >
 
 
-            <br><br>
+                <label for="rating">
+                    Rating:
+                </label>
+
+                <select id="rating">
+
+                    <option value="">
+                        Select a rating
+                    </option>
+
+                    <option value="5">
+                        5 - Excellent
+                    </option>
+
+                    <option value="4">
+                        4 - Very Good
+                    </option>
+
+                    <option value="3">
+                        3 - Good
+                    </option>
+
+                    <option value="2">
+                        2 - Fair
+                    </option>
+
+                    <option value="1">
+                        1 - Poor
+                    </option>
+
+                </select>
 
 
-            <label for="feedback">
-                Feedback:
-            </label>
+                <label for="feedback">
+                    Feedback:
+                </label>
+
+                <textarea
+                    id="feedback"
+                    rows="5"
+                    placeholder="Tell us about your experience"
+                ></textarea>
 
 
-            <textarea
-                id="feedback"
-                rows="5"
-                cols="40"
-            ></textarea>
+                <button
+                    type="button"
+                    onclick="submitFeedback()"
+                >
+                    Submit Review
+                </button>
 
 
-            <br>
+                <div id="feedbackMessage"></div>
 
-
-            <button
-                type="button"
-                onclick="submitFeedback()"
-            >
-                Submit Feedback
-            </button>
-
-
-            <div id="feedbackMessage"></div>
+            </div>
 
         </section>
 
 
+        <!-- =====================================
+             RETURN TO MENU
+             ===================================== -->
+
         <section>
 
+            <h2>
+                Hungry Again?
+            </h2>
+
             <p>
-                <a href="index.html">
-                    Back to The Smoosh
-                </a>
+                Head back to the menu and start your next Smoosh order.
             </p>
+
+            <a
+                href="index.html"
+                class="button-link"
+            >
+                Return to Menu
+            </a>
 
         </section>
 
 
     </main>
 
+
+    <!-- =========================================
+         FOOTER
+         ========================================= -->
 
     <footer>
 
@@ -173,6 +238,10 @@
 
     </footer>
 
+
+    <!-- =========================================
+         JAVASCRIPT
+         ========================================= -->
 
     <script src="script.js"></script>
 

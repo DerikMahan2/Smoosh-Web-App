@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smoosh - Checkout</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         HEADER
+         ========================================= -->
+
+    <header>
+
+        <h1>SMOOSH</h1>
+
+        <p>
+            Burgers. Dogs. Smooshed Right.
+        </p>
+
+    </header>
+
+
+    <!-- =========================================
+         NAVIGATION
+         ========================================= -->
+
+    <nav class="main-nav">
+
+        <a href="index.html">
+            Menu
+        </a>
+
+        <a href="cart.html">
+            Cart
+        </a>
+
+        <a href="reviews.html">
+            Reviews
+        </a>
+
+    </nav>
+
+
+    <!-- =========================================
+         MAIN CONTENT
+         ========================================= -->
+
+    <main>
+
+        <section>
+
+            <h2>
+                Checkout
+            </h2>
+
+            <p class="page-intro">
+                Enter the information we can use to identify your pickup order.
+            </p>
+
+
+            <!-- ORDER SUMMARY -->
+
+            <div id="checkoutSummary">
+
+                <p>
+                    Loading your order...
+                </p>
+
+            </div>
+
+
+            <!-- =================================
+                 CUSTOMER INFORMATION
+                 ================================= -->
+
+            <div class="checkout-form">
+
+                <label for="customerName">
+                    Name:
+                </label>
+
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Enter your name"
+                >
+
+
+                <label for="customerPhone">
+                    Phone Number:
+                </label>
+
+                <input
+                    type="tel"
+                    id="customerPhone"
+                    placeholder="361-555-1234"
+                >
+
+
+                <label for="customerEmail">
+                    Email Address (Optional):
+                </label>
+
+                <input
+                    type="email"
+                    id="customerEmail"
+                    placeholder="name@example.com"
+                >
+
+
+                <label for="specialInstructions">
+                    Special Instructions:
+                </label>
+
+                <textarea
+                    id="specialInstructions"
+                    rows="5"
+                    placeholder="Allergies, modifications, or other instructions"
+                ></textarea>
+
+            </div>
+
+
+            <!-- CHECKOUT ACTIONS -->
+
+            <div class="checkout-actions">
+
+                <button
+                    type="button"
+                    onclick="backToCart()"
+                >
+                    Back to Cart
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="submitOrder()"
+                >
+                    Submit Order
+                </button>
+
+            </div>
+
+
+            <!-- VALIDATION / STATUS MESSAGE -->
+
+            <div id="checkoutMessage"></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+         ========================================= -->
+
+    <footer>
+
+        <p>
+            Smoosh Food Truck | Corpus Christi, Texas
+        </p>
+
+    </footer>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+         ========================================= -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

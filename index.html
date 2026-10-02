@@ -28,6 +28,30 @@
 
 
     <!-- =========================================
+         NAVIGATION
+         ========================================= -->
+
+    <nav class="main-nav">
+
+        <a
+            href="index.html"
+            class="active"
+        >
+            Menu
+        </a>
+
+        <a href="cart.html">
+            Cart
+        </a>
+
+        <a href="reviews.html">
+            Reviews
+        </a>
+
+    </nav>
+
+
+    <!-- =========================================
          MAIN CONTENT
          ========================================= -->
 
@@ -44,14 +68,14 @@
                 Enter the Smoosh
             </h2>
 
-            <p>
-                Welcome to Smoosh. Choose your food, select your quantity,
+            <p class="page-intro">
+                Choose your food, select your quantity,
                 and build your order before heading to the truck.
             </p>
 
-            <p>
-                Every item is made to order. Add what you want below,
-                review your order, and provide your pickup information
+            <p class="page-intro">
+                Every item is made to order.
+                Add what you want, then review your cart
                 when you are ready.
             </p>
 
@@ -67,6 +91,7 @@
             <h2>
                 The Menu
             </h2>
+
 
             <div class="menu-grid">
 
@@ -94,10 +119,8 @@
                         toasted bun.
                     </p>
 
-                    <p>
-                        <strong>
-                            $8.99
-                        </strong>
+                    <p class="product-price">
+                        $8.99
                     </p>
 
                     <div
@@ -121,20 +144,20 @@
 
                     <button
                         type="button"
-                        onclick="addToOrder(
+                        onclick="addToCart(
                             'The Smoosh',
                             8.99,
                             'quantitySmoosh'
                         )"
                     >
-                        Add to Order
+                        Add to Cart
                     </button>
 
                 </div>
 
 
                 <!-- =================================
-                     DOUBLE SMOOSH
+                     THE DOUBLE SMOOSH
                      ================================= -->
 
                 <div class="menu-card">
@@ -156,17 +179,15 @@
                         pickles, and Smoosh sauce.
                     </p>
 
-                    <p>
-                        <strong>
-                            $11.99
-                        </strong>
+                    <p class="product-price">
+                        $11.99
                     </p>
 
                     <div
                         id="doubleDetails"
                         class="product-details"
                     >
-                        Built for a bigger appetite with additional beef
+                        Built for a bigger appetite with extra beef
                         and cheese while keeping the original Smoosh flavor.
                     </div>
 
@@ -183,20 +204,20 @@
 
                     <button
                         type="button"
-                        onclick="addToOrder(
+                        onclick="addToCart(
                             'The Double Smoosh',
                             11.99,
                             'quantityDouble'
                         )"
                     >
-                        Add to Order
+                        Add to Cart
                     </button>
 
                 </div>
 
 
                 <!-- =================================
-                     SPICY SMOOSH
+                     THE SPICY SMOOSH
                      ================================= -->
 
                 <div class="menu-card">
@@ -218,18 +239,16 @@
                         Smoosh sauce.
                     </p>
 
-                    <p>
-                        <strong>
-                            $9.99
-                        </strong>
+                    <p class="product-price">
+                        $9.99
                     </p>
 
                     <div
                         id="spicyDetails"
                         class="product-details"
                     >
-                        Everything you like about The Smoosh with an
-                        extra kick for customers who want some heat.
+                        Everything you like about The Smoosh
+                        with an extra kick for customers who want some heat.
                     </div>
 
                     <label for="quantitySpicy">
@@ -245,13 +264,13 @@
 
                     <button
                         type="button"
-                        onclick="addToOrder(
+                        onclick="addToCart(
                             'The Spicy Smoosh',
                             9.99,
                             'quantitySpicy'
                         )"
                     >
-                        Add to Order
+                        Add to Cart
                     </button>
 
                 </div>
@@ -279,19 +298,16 @@
                         and finished with toppings worthy of The Crawler name.
                     </p>
 
-                    <p>
-                        <strong>
-                            $7.99
-                        </strong>
+                    <p class="product-price">
+                        $7.99
                     </p>
 
                     <div
                         id="crawlerDetails"
                         class="product-details"
                     >
-                        Our signature hot dog option for customers who want
-                        something different from a burger without leaving
-                        the Smoosh experience.
+                        Our signature hot dog option for customers
+                        who want something different from a burger.
                     </div>
 
                     <label for="quantityCrawler">
@@ -307,13 +323,13 @@
 
                     <button
                         type="button"
-                        onclick="addToOrder(
+                        onclick="addToCart(
                             'The Crawler',
                             7.99,
                             'quantityCrawler'
                         )"
                     >
-                        Add to Order
+                        Add to Cart
                     </button>
 
                 </div>
@@ -325,133 +341,34 @@
 
 
         <!-- =====================================
-             CURRENT ORDER
+             CART STATUS
              ===================================== -->
 
         <section>
 
             <h2>
-                Your Order
+                Ready to Review?
             </h2>
 
             <p>
-                Items you add from the menu will appear below.
+                Your selected items will stay in your cart
+                while you move through the ordering process.
             </p>
 
-            <div id="orderSummary">
+            <div id="cartStatus">
 
                 <p>
-                    Your order is currently empty.
+                    Your cart is currently empty.
                 </p>
 
             </div>
 
-            <div id="orderTotal">
-
-                <p>
-                    <strong>
-                        Order Total: $0.00
-                    </strong>
-                </p>
-
-            </div>
-
-            <button
-                type="button"
-                onclick="clearOrder()"
+            <a
+                href="cart.html"
+                class="button-link"
             >
-                Clear Order
-            </button>
-
-        </section>
-
-
-        <!-- =====================================
-             CUSTOMER INFORMATION
-             ===================================== -->
-
-        <section>
-
-            <h2>
-                Pickup Information
-            </h2>
-
-            <p>
-                Tell us who is picking up the order. This information
-                will eventually be associated with the order stored
-                in the Smoosh database.
-            </p>
-
-
-            <label for="customerName">
-                Name:
-            </label>
-
-            <br>
-
-            <input
-                type="text"
-                id="customerName"
-                placeholder="Enter your name"
-            >
-
-
-            <br><br>
-
-
-            <label for="customerPhone">
-                Phone Number:
-            </label>
-
-            <br>
-
-            <input
-                type="tel"
-                id="customerPhone"
-                placeholder="361-555-1234"
-            >
-
-
-            <br><br>
-
-
-            <label for="customerEmail">
-                Email (Optional):
-            </label>
-
-            <br>
-
-            <input
-                type="email"
-                id="customerEmail"
-                placeholder="name@example.com"
-            >
-
-
-            <br><br>
-
-
-            <label for="specialInstructions">
-                Special Instructions:
-            </label>
-
-            <textarea
-                id="specialInstructions"
-                rows="5"
-                cols="40"
-                placeholder="Allergies, modifications, or other instructions"
-            ></textarea>
-
-
-            <button
-                type="button"
-                onclick="submitOrder()"
-            >
-                Submit Order
-            </button>
-
-
-            <div id="orderMessage"></div>
+                Review Cart
+            </a>
 
         </section>
 
@@ -468,7 +385,7 @@
 
             <p>
                 Already survived a Smoosh encounter?
-                See what other customers have said or leave us feedback.
+                See what other customers have said or leave feedback.
             </p>
 
             <a href="reviews.html">

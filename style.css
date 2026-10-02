@@ -779,11 +779,496 @@ footer p {
         none;
 }
 
+
+/* =========================================
+   MAIN NAVIGATION
+   ========================================= */
+
+.main-nav {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    padding:
+        14px
+        20px;
+
+    background:
+        #0b1014;
+
+    border-bottom:
+        1px solid #35424d;
+}
+
+.main-nav a {
+    display: inline-block;
+
+    padding:
+        10px
+        18px;
+
+    border:
+        1px solid transparent;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        1px;
+}
+
+.main-nav a:hover {
+    border-color:
+        #ff9f1c;
+}
+
+.main-nav a.active {
+    color:
+        #ff9f1c;
+
+    border-bottom:
+        2px solid #ff9f1c;
+}
+
+
+/* =========================================
+   GENERAL PAGE INTRO
+   ========================================= */
+
+.page-intro {
+    text-align:
+        center;
+
+    max-width:
+        760px;
+
+    margin:
+        0 auto 20px;
+}
+
+
+/* =========================================
+   PRODUCT PRICE
+   ========================================= */
+
+.product-price {
+    color:
+        #ff9f1c;
+
+    font-size:
+        1.2rem;
+
+    font-weight:
+        bold;
+
+    text-align:
+        center;
+}
+
+
+/* =========================================
+   CART STATUS
+   ========================================= */
+
+#cartStatus {
+    border-left-color:
+        #a8d941;
+
+    margin-top:
+        20px;
+}
+
+#cartStatus p {
+    text-align:
+        center;
+}
+
+
+/* =========================================
+   CART PAGE
+   ========================================= */
+
+.cart-item {
+    background:
+        linear-gradient(
+            90deg,
+            #12191e,
+            #10161a
+        );
+
+    border-left:
+        4px solid #2f6f67;
+
+    margin:
+        16px auto;
+
+    padding:
+        18px 22px;
+
+    max-width:
+        760px;
+
+    text-align:
+        left;
+}
+
+.cart-item h3 {
+    margin-bottom:
+        10px;
+}
+
+#cartTotal {
+    border-left-color:
+        #ff9f1c;
+
+    margin-top:
+        20px;
+}
+
+#cartTotal p {
+    color:
+        #ff9f1c;
+
+    font-size:
+        1.15rem;
+
+    text-align:
+        center;
+}
+
+.cart-actions {
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        12px;
+
+    margin-top:
+        20px;
+}
+
+#cartMessage {
+    border-left-color:
+        #a8d941;
+
+    margin-top:
+        20px;
+}
+
+#cartMessage:empty {
+    display:
+        none;
+}
+
+
+/* =========================================
+   CHECKOUT PAGE
+   ========================================= */
+
+#checkoutSummary {
+    border-left-color:
+        #2f6f67;
+
+    margin-bottom:
+        26px;
+}
+
+.checkout-form {
+    max-width:
+        650px;
+
+    margin:
+        0 auto;
+
+    text-align:
+        left;
+}
+
+.checkout-form label {
+    display:
+        block;
+
+    margin-top:
+        16px;
+
+    margin-bottom:
+        4px;
+}
+
+.checkout-form input,
+.checkout-form textarea {
+    display:
+        block;
+
+    width:
+        100%;
+
+    max-width:
+        100%;
+
+    margin:
+        0;
+}
+
+.checkout-actions {
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        12px;
+
+    margin-top:
+        24px;
+}
+
+#checkoutMessage {
+    border-left-color:
+        #a8d941;
+
+    margin-top:
+        24px;
+}
+
+#checkoutMessage:empty {
+    display:
+        none;
+}
+
+
+/* =========================================
+   CONFIRMATION PAGE
+   ========================================= */
+
+#confirmationDetails {
+    border-left-color:
+        #a8d941;
+
+    margin-top:
+        24px;
+}
+
+.confirmation-actions {
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        14px;
+
+    margin-top:
+        26px;
+}
+
+
+/* =========================================
+   BUTTON-LIKE LINKS
+   ========================================= */
+
+.button-link {
+    display:
+        inline-block;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffb13b 0%,
+            #ff9f1c 55%,
+            #e48300 100%
+        );
+
+    color:
+        #111418;
+
+    border:
+        2px solid #ffc35c;
+
+    padding:
+        12px 24px;
+
+    margin:
+        12px;
+
+    font-size:
+        0.95rem;
+
+    font-weight:
+        bold;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        1.2px;
+
+    box-shadow:
+        0 4px 0 #8d5200,
+        0 8px 16px rgba(0, 0, 0, 0.45);
+}
+
+.button-link:hover {
+    background:
+        #a8d941;
+
+    color:
+        #111418;
+
+    border-color:
+        #d8ff78;
+
+    box-shadow:
+        0 4px 0 #587816,
+        0 0 18px rgba(168, 217, 65, 0.42);
+
+    transform:
+        translateY(-2px);
+
+    text-shadow:
+        none;
+}
+
+
+/* =========================================
+   REVIEWS PAGE
+   ========================================= */
+
+.review-card {
+    background:
+        linear-gradient(
+            90deg,
+            #12191e,
+            #10161a
+        );
+
+    border-left:
+        4px solid #2f6f67;
+
+    max-width:
+        760px;
+
+    margin:
+        18px auto;
+
+    padding:
+        18px 22px;
+
+    text-align:
+        left;
+}
+
+.review-rating {
+    color:
+        #ff9f1c;
+
+    font-weight:
+        bold;
+}
+
+.review-form {
+    max-width:
+        650px;
+
+    margin:
+        0 auto;
+
+    text-align:
+        left;
+}
+
+.review-form label {
+    display:
+        block;
+
+    margin-top:
+        16px;
+
+    margin-bottom:
+        4px;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+    display:
+        block;
+
+    width:
+        100%;
+
+    max-width:
+        100%;
+
+    margin:
+        0;
+}
+
+.review-form button {
+    display:
+        block;
+
+    margin:
+        24px auto 12px;
+}
+
 /* =========================================
    RESPONSIVE / MOBILE DESIGN
    ========================================= */
 
 @media (max-width: 700px) {
+
+    .main-nav {
+        flex-direction:
+            column;
+
+        align-items:
+            center;
+
+        gap:
+            6px;
+    }
+
+    .main-nav a {
+        width:
+            100%;
+
+        max-width:
+            260px;
+
+        text-align:
+            center;
+    }
+
+    .cart-actions,
+    .checkout-actions,
+    .confirmation-actions {
+        flex-direction:
+            column;
+
+        align-items:
+            center;
+    }
+
 
     header {
         padding:
