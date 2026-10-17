@@ -281,136 +281,192 @@ function updateCartStatus() {
 }
 
 
+
 /* =========================================
    CART PAGE
+   WITH QUANTITY CONTROLS
    ========================================= */
 
 function displayCart() {
 
-    var cartItems =
-        document.getElementById(
-            "cartItems"
-        );
+    const cartItems =
+        document.getElementById("cartItems");
 
+    const cartTotal =
+        document.getElementById("cartTotal");
 
-    var cartTotal =
-        document.getElementById(
-            "cartTotal"
-        );
-
-
-    if (
-        cartItems === null ||
-        cartTotal === null
-    ) {
-
+    if (cartItems === null || cartTotal === null) {
         return;
     }
 
+    const cart = getCart();
 
-    var cart =
-        getCart();
-
-
-    if (
-        cart.length === 0
-    ) {
+    if (cart.length === 0) {
 
         cartItems.innerHTML =
             "<p>Your cart is currently empty.</p>";
 
-
         cartTotal.innerHTML =
             "<p><strong>Order Total: $0.00</strong></p>";
 
-
+        updateNavCartCount();
         return;
     }
 
+    let cartHTML = "";
 
-    var cartHTML =
-        "";
+    for (let i = 0; i < cart.length; i++) {
 
+        const item = cart[i];
 
-    for (
-        var i = 0;
-        i < cart.length;
-        i++
-    ) {
+        cartHTML += `
 
-        cartHTML +=
+            <div class="cart-item">
 
-            "<div class='cart-item'>" +
+                <h3>${item.name}</h3>
 
-            "<h3>" +
-            cart[i].name +
-            "</h3>" +
+                <p class="cart-unit-price">
+                    $${item.price.toFixed(2)} each
+                </p>
 
-            "<p>" +
+                <div class="cart-quantity-controls">
 
-            "<strong>Quantity:</strong> " +
-            cart[i].quantity +
+                    <span class="cart-quantity-label">
+                        Quantity:
+                    </span>
 
-            "<br>" +
+                    <button
+                        type="button"
+                        class="quantity-button"
+                        onclick="changeCartQuantity(${i}, -1)"
+                        aria-label="Decrease ${item.name} quantity"
+                    >
+                        &minus;
+                    </button>
 
-            "<strong>Price Each:</strong> $" +
-            cart[i].price.toFixed(2) +
+                    <span class="cart-quantity-value">
+                        ${item.quantity}
+                    </span>
 
-            "<br>" +
+                    <button
+                        type="button"
+                        class="quantity-button"
+                        onclick="changeCartQuantity(${i}, 1)"
+                        aria-label="Increase ${item.name} quantity"
+                    >
+                        +
+                    </button>
 
-            "<strong>Item Total:</strong> $" +
-            cart[i].total.toFixed(2) +
+                </div>
 
-            "</p>" +
+                <p class="cart-item-total">
+                    Item Total:
+                    <strong>$${item.total.toFixed(2)}</strong>
+                </p>
 
-            "<button type='button' " +
-            "onclick='removeCartItem(" +
-            i +
-            ")'>" +
-            "Remove Item" +
-            "</button>" +
+                <button
+                    type="button"
+                    class="remove-item-button"
+                    onclick="removeCartItem(${i})"
+                >
+                    Remove All
+                </button>
 
-            "</div>";
+            </div>
+
+        `;
     }
 
+    cartItems.innerHTML = cartHTML;
 
-    cartItems.innerHTML =
-        cartHTML;
+    const total = getCartTotal(cart);
 
+    cartTotal.innerHTML = `
+        <p>
+            <strong>
+                Order Total: $${total.toFixed(2)}
+            </strong>
+        </p>
+    `;
 
-    var total =
-        getCartTotal(cart);
-
-
-    cartTotal.innerHTML =
-        "<p><strong>Order Total: $" +
-        total.toFixed(2) +
-        "</strong></p>";
+    updateNavCartCount();
 }
 
 
 /* =========================================
-   REMOVE ONE CART ITEM
+   INCREASE OR DECREASE ITEM QUANTITY
+   ========================================= */
+
+function changeCartQuantity(index, adjustment) {
+
+    const cart = getCart();
+
+    if (
+        !Number.isInteger(index) ||
+        index < 0 ||
+        index >= cart.length ||
+        (adjustment !== 1 && adjustment !== -1)
+    ) {
+        return;
+    }
+
+    // Adjust the selected product quantity.
+    cart[index].quantity += adjustment;
+
+    // Remove the product when quantity reaches zero.
+    if (cart[index].quantity <= 0) {
+
+        cart.splice(index, 1);
+
+    } else {
+
+        // Recalculate this product's subtotal.
+        cart[index].total =
+            Math.round(
+                cart[index].price *
+                cart[index].quantity * 100
+            ) / 100;
+    }
+
+    // Save the updated cart.
+    saveCart(cart);
+
+    // Refresh the cart display and totals.
+    displayCart();
+
+    // Update homepage summary if present.
+    updateCartStatus();
+}
+
+
+/* =========================================
+   REMOVE ALL OF A SELECTED PRODUCT
    ========================================= */
 
 function removeCartItem(index) {
 
-    var cart =
-        getCart();
+    const cart = getCart();
 
+    if (
+        !Number.isInteger(index) ||
+        index < 0 ||
+        index >= cart.length
+    ) {
+        return;
+    }
 
-    cart.splice(
-        index,
-        1
-    );
+    // Delete the entire selected product line.
+    cart.splice(index, 1);
 
-
+    // Save updated shopping cart.
     saveCart(cart);
 
-
+    // Refresh product list and total.
     displayCart();
-}
 
+    // Refresh homepage summary if present.
+    updateCartStatus();
+}
 
 /* =========================================
    CONTINUE SHOPPING
