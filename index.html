@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Smoosh Food Truck</title>
+    <title>Smoosh Food Truck | Menu</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -13,35 +14,30 @@
 <body>
 
     <!-- =========================================
-         HEADER
+         HEADER / BRANDING
          ========================================= -->
 
     <header>
-
         <h1>SMOOSH</h1>
 
         <p>
             Burgers. Dogs. Smooshed Right.
         </p>
-
     </header>
 
 
     <!-- =========================================
-         NAVIGATION
+         MAIN NAVIGATION
          ========================================= -->
 
-    <nav class="main-nav">
+    <nav class="main-nav" aria-label="Main navigation">
 
-        <a
-            href="index.html"
-            class="active"
-        >
+        <a href="index.html" class="active">
             Menu
         </a>
 
-        <a href="cart.html">
-            Cart
+        <a href="cart.html" id="cartNav">
+            CART (<span id="cartCount">0</span>)
         </a>
 
         <a href="reviews.html">
@@ -57,47 +53,29 @@
 
     <main>
 
-
         <!-- =====================================
-             INTRODUCTION
+             MENU / PRODUCT SELECTION
+             Customers see products immediately
              ===================================== -->
 
-        <section>
+        <section class="menu-section" id="menu">
 
             <h2>
-                Enter the Smoosh
+                THE SMOOSH MENU
             </h2>
 
             <p class="page-intro">
-                Choose your food, select your quantity,
-                and build your order before heading to the truck.
+                Fresh off the grill. Built your way.
+                Pick your favorites, choose your quantity,
+                and order ahead for pickup.
             </p>
-
-            <p class="page-intro">
-                Every item is made to order.
-                Add what you want, then review your cart
-                when you are ready.
-            </p>
-
-        </section>
-
-
-        <!-- =====================================
-             MENU
-             ===================================== -->
-
-        <section>
-
-            <h2>
-                The Menu
-            </h2>
 
 
             <div class="menu-grid">
 
 
                 <!-- =================================
-                     THE SMOOSH
+                     PRODUCT 1: THE SMOOSH
                      ================================= -->
 
                 <div class="menu-card">
@@ -108,7 +86,7 @@
 
                     <img
                         src="images/thesmoosh.png"
-                        alt="The Smoosh burger"
+                        alt="The Smoosh signature burger"
                         onmouseenter="showProductInfo('smooshDetails')"
                         onmouseleave="hideProductInfo('smooshDetails')"
                     >
@@ -140,6 +118,7 @@
                         id="quantitySmoosh"
                         value="1"
                         min="1"
+                        step="1"
                     >
 
                     <button
@@ -157,7 +136,7 @@
 
 
                 <!-- =================================
-                     THE DOUBLE SMOOSH
+                     PRODUCT 2: THE DOUBLE SMOOSH
                      ================================= -->
 
                 <div class="menu-card">
@@ -200,6 +179,7 @@
                         id="quantityDouble"
                         value="1"
                         min="1"
+                        step="1"
                     >
 
                     <button
@@ -217,7 +197,7 @@
 
 
                 <!-- =================================
-                     THE SPICY SMOOSH
+                     PRODUCT 3: THE SPICY SMOOSH
                      ================================= -->
 
                 <div class="menu-card">
@@ -260,6 +240,7 @@
                         id="quantitySpicy"
                         value="1"
                         min="1"
+                        step="1"
                     >
 
                     <button
@@ -277,7 +258,7 @@
 
 
                 <!-- =================================
-                     THE CRAWLER
+                     PRODUCT 4: THE CRAWLER
                      ================================= -->
 
                 <div class="menu-card">
@@ -288,7 +269,7 @@
 
                     <img
                         src="images/thecrawler.png"
-                        alt="The Crawler hot dog"
+                        alt="The Crawler signature hot dog"
                         onmouseenter="showProductInfo('crawlerDetails')"
                         onmouseleave="hideProductInfo('crawlerDetails')"
                     >
@@ -319,6 +300,7 @@
                         id="quantityCrawler"
                         value="1"
                         min="1"
+                        step="1"
                     >
 
                     <button
@@ -334,25 +316,25 @@
 
                 </div>
 
-
             </div>
 
         </section>
 
 
         <!-- =====================================
-             CART STATUS
+             SHOPPING CART STATUS
              ===================================== -->
 
-        <section>
+        <section class="cart-section">
 
             <h2>
-                Ready to Review?
+                READY TO REVIEW?
             </h2>
 
-            <p>
-                Your selected items will stay in your cart
-                while you move through the ordering process.
+            <p class="page-intro">
+                Your selected items stay in your cart while you
+                explore the menu. Review your order whenever
+                you're ready.
             </p>
 
             <div id="cartStatus">
@@ -374,26 +356,29 @@
 
 
         <!-- =====================================
-             REVIEWS
+             REVIEWS AND FEEDBACK
              ===================================== -->
 
-        <section>
+        <section class="reviews-section">
 
             <h2>
-                What the Crawlers Are Saying
+                WHAT THE CRAWLERS ARE SAYING
             </h2>
 
-            <p>
+            <p class="page-intro">
                 Already survived a Smoosh encounter?
-                See what other customers have said or leave feedback.
+                See what other customers have said,
+                or leave us your own feedback.
             </p>
 
-            <a href="reviews.html">
+            <a
+                href="reviews.html"
+                class="button-link"
+            >
                 Reviews & Feedback
             </a>
 
         </section>
-
 
     </main>
 

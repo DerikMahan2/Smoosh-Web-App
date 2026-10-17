@@ -1,8 +1,26 @@
+
 /* =========================================
    SMOOSH FOOD TRUCK
-   Industrial Dungeon / Game HUD Theme
+   Project Deliverable 2
+   Front-End Refinement
    ========================================= */
 
+/* =========================================
+   GLOBAL VARIABLES / BRAND COLORS
+   ========================================= */
+
+:root {
+    --bg-dark: #0c0f12;
+    --bg-panel: #151c21;
+    --bg-card: #11171b;
+    --orange: #ff9f1c;
+    --orange-light: #ffb13b;
+    --green: #a8d941;
+    --teal: #2f6f67;
+    --text: #f2f3f4;
+    --muted: #aab4be;
+    --border: #35424d;
+}
 
 /* =========================================
    GLOBAL RESET
@@ -18,51 +36,38 @@ html {
 
 body {
     margin: 0;
+    min-height: 100vh;
 
-    background:
-        radial-gradient(
-            circle at top center,
-            #203746 0%,
-            #151b21 22%,
-            #111418 45%,
-            #0c0f12 100%
-        );
+    background: radial-gradient(
+        circle at top center,
+        #203746 0%,
+        #151b21 22%,
+        #111418 45%,
+        #0c0f12 100%
+    );
 
     background-attachment: fixed;
-
-    color: #f2f3f4;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
 }
 
-
 /* =========================================
-   HEADER
+   HEADER / SMOOSH BRANDING
    ========================================= */
 
 header {
     text-align: center;
+    padding: 32px 20px 25px;
 
-    padding:
-        42px
-        20px
-        32px;
+    background: linear-gradient(
+        180deg,
+        #18232b 0%,
+        #11171c 55%,
+        #0e1215 100%
+    );
 
-    background:
-        linear-gradient(
-            180deg,
-            #18232b 0%,
-            #11171c 55%,
-            #0e1215 100%
-        );
-
-    border-bottom:
-        2px solid #ff9f1c;
+    border-bottom: 2px solid var(--orange);
 
     box-shadow:
         0 8px 25px rgba(0, 0, 0, 0.65);
@@ -70,54 +75,84 @@ header {
 
 header h1 {
     margin: 0;
-
-    color: #ff9f1c;
-
-    font-size: 3.5rem;
-
+    color: var(--orange);
+    font-size: 3.3rem;
     letter-spacing: 10px;
-
     text-transform: uppercase;
 
     text-shadow:
         0 0 8px rgba(255, 159, 28, 0.50),
         0 0 18px rgba(255, 159, 28, 0.16),
-        3px 3px 0 #000000;
+        3px 3px 0 #000;
 }
 
 header p {
-    margin:
-        8px
-        0
-        0;
-
-    color: #a8d941;
-
+    margin: 5px 0 0;
+    color: var(--green);
     font-size: 1.05rem;
-
     font-weight: bold;
-
     letter-spacing: 2px;
-
-    text-align: center;
 }
 
+/* =========================================
+   MAIN NAVIGATION
+   ========================================= */
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+
+    padding: 12px 20px;
+    background: #0b1014;
+    border-bottom: 1px solid var(--border);
+}
+
+.main-nav a {
+    display: inline-block;
+    padding: 10px 18px;
+
+    color: var(--green);
+    border: 1px solid transparent;
+
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.main-nav a:hover {
+    color: var(--orange);
+    border-color: var(--orange);
+}
+
+.main-nav a.active {
+    color: var(--orange);
+    border-bottom: 2px solid var(--orange);
+}
+
+/* Cart quantity indicator */
+
+#cartCount {
+    color: inherit;
+    font-weight: bold;
+}
 
 /* =========================================
    MAIN PAGE CONTAINER
    ========================================= */
 
 main {
-    width: 90%;
-
-    max-width: 1100px;
-
-    margin:
-        32px
-        auto
-        50px;
+    width: 94%;
+    max-width: 1200px;
+    margin: 22px auto 45px;
 }
-
 
 /* =========================================
    CONTENT PANELS
@@ -126,26 +161,18 @@ main {
 section {
     position: relative;
 
-    background:
-        linear-gradient(
-            145deg,
-            #1b242b 0%,
-            #151c21 50%,
-            #11171b 100%
-        );
+    background: linear-gradient(
+        145deg,
+        #1b242b 0%,
+        #151c21 50%,
+        #11171b 100%
+    );
 
-    border:
-        1px solid #35424d;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--orange);
 
-    border-top:
-        3px solid #ff9f1c;
-
-    margin:
-        24px
-        auto;
-
-    padding:
-        30px;
+    margin: 22px auto;
+    padding: 28px;
 
     text-align: center;
 
@@ -154,60 +181,42 @@ section {
         inset 0 0 25px rgba(47, 111, 103, 0.07);
 }
 
-
-/* Small HUD-style accent line */
+/* Decorative HUD accent */
 
 section::after {
     content: "";
-
     display: block;
 
     width: 80px;
-
     height: 3px;
+    margin: 25px auto 0;
 
-    margin:
-        28px
-        auto
-        0;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            #2f6f67,
-            #a8d941,
-            #2f6f67,
-            transparent
-        );
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--teal),
+        var(--green),
+        var(--teal),
+        transparent
+    );
 
     opacity: 0.65;
 }
 
-
-/* Remove HUD accent from simple navigation panel */
-
 main > section:last-of-type::after {
     display: none;
 }
-
 
 /* =========================================
    HEADINGS
    ========================================= */
 
 h2 {
-    margin:
-        0
-        0
-        24px;
+    margin: 0 0 16px;
 
-    color: #ff9f1c;
-
+    color: var(--orange);
     font-size: 2rem;
-
-    letter-spacing: 2.5px;
-
+    letter-spacing: 2px;
     text-transform: uppercase;
 
     text-shadow:
@@ -215,65 +224,125 @@ h2 {
 }
 
 h3 {
-    color: #a8d941;
-
     margin-top: 0;
-
+    color: var(--green);
     letter-spacing: 1px;
 }
 
-
-/* =========================================
-   GENERAL TEXT
-   ========================================= */
-
 p {
-    color: #f2f3f4;
+    color: var(--text);
 }
 
-section p {
-    max-width: 850px;
-
-    margin-left: auto;
-    margin-right: auto;
+.page-intro {
+    max-width: 760px;
+    margin: 0 auto 20px;
+    text-align: center;
 }
-
-
-/* Longer descriptions remain easier to read
-   while the overall page remains centered */
-
-section > p {
-    text-align: left;
-}
-
 
 /* =========================================
-   FEATURED PRODUCT
+   HOMEPAGE MENU SECTION
    ========================================= */
 
-main > section:first-of-type {
-    max-width: 900px;
+.menu-section {
+    width: 100%;
+    max-width: 1200px;
+
+    margin-top: 18px;
+    padding: 28px 32px 32px;
 }
 
+.menu-section h2 {
+    margin-bottom: 10px;
+}
 
-/* Product image */
+.menu-section > .page-intro {
+    max-width: 750px;
+    margin-bottom: 24px;
+}
 
-section img {
+/* =========================================
+   TWO-COLUMN MENU GRID
+   ========================================= */
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 24px;
+
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* =========================================
+   PRODUCT CARDS
+   ========================================= */
+
+.menu-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-width: 0;
+    padding: 24px;
+
+    background: linear-gradient(
+        145deg,
+        #171f25,
+        #11171b
+    );
+
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--teal);
+
+    text-align: center;
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.38);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-3px);
+    border-top-color: var(--orange);
+
+    box-shadow:
+        0 10px 22px rgba(0, 0, 0, 0.48),
+        0 0 18px rgba(255, 159, 28, 0.14);
+}
+
+.menu-card h3 {
+    margin: 0 0 16px;
+    color: var(--green);
+    font-size: 1.3rem;
+}
+
+/* =========================================
+   PRODUCT PHOTOGRAPHY
+   ========================================= */
+
+.menu-card img {
     display: block;
 
     width: 100%;
-
-    max-width: 420px;
+    max-width: 440px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
 
     height: auto;
+    margin: 0 auto 18px;
 
-    margin:
-        18px
-        auto
-        24px;
-
-    border:
-        3px solid #2f6f67;
+    border: 3px solid var(--teal);
 
     box-shadow:
         0 0 0 4px #101418,
@@ -284,54 +353,86 @@ section img {
         box-shadow 0.25s ease;
 }
 
-section img:hover {
-    transform:
-        scale(1.015);
+.menu-card img:hover {
+    transform: scale(1.015);
 
     box-shadow:
         0 0 0 4px #101418,
         0 0 28px rgba(168, 217, 65, 0.24);
 }
 
-
-/* Featured product description */
-
-main > section:first-of-type > p:first-of-type {
-    max-width: 720px;
-
-    margin-top: 18px;
-
-    margin-bottom: 10px;
-}
-
-
-/* Featured product price */
-
-main > section:first-of-type > p:nth-of-type(2) {
-    margin:
-        12px
-        auto
-        10px;
-
-    color: #ff9f1c;
-
-    font-size: 1.3rem;
-
-    font-weight: bold;
-
+.menu-card > p {
+    max-width: 440px;
+    margin: 10px auto;
     text-align: center;
-
-    letter-spacing: 0.5px;
 }
 
+/* =========================================
+   PRODUCT PRICES
+   ========================================= */
+
+.product-price {
+    color: var(--orange);
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* =========================================
+   HOVER PRODUCT DETAILS
+   ========================================= */
+
+.product-details {
+    display: none;
+
+    width: 100%;
+    max-width: 440px;
+
+    background: linear-gradient(
+        90deg,
+        #12191e,
+        #10161a
+    );
+
+    border-left: 4px solid var(--green);
+
+    margin: 12px auto;
+    padding: 14px 18px;
+
+    text-align: left;
+    color: var(--text);
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.22);
+}
+
+/* =========================================
+   PRODUCT QUANTITY CONTROLS
+   ========================================= */
+
+.menu-card label {
+    display: block;
+    margin-top: auto;
+    padding-top: 12px;
+    font-weight: bold;
+}
+
+.menu-card input[type="number"] {
+    width: 90px;
+    margin: 8px auto 4px;
+    text-align: center;
+}
+
+.menu-card button {
+    margin-top: 12px;
+}
 
 /* =========================================
    FORM CONTROLS
    ========================================= */
 
 label {
-    color: #f2f3f4;
-
+    color: var(--text);
     font-weight: bold;
 }
 
@@ -339,24 +440,13 @@ input,
 select,
 textarea {
     background-color: #0e1418;
+    color: var(--text);
 
-    color: #f2f3f4;
-
-    border:
-        1px solid #4c5a65;
-
-    padding:
-        10px;
+    border: 1px solid #4c5a65;
+    padding: 10px;
 
     font-size: 1rem;
-
-    margin:
-        5px;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 
     transition:
         border-color 0.2s ease,
@@ -368,7 +458,6 @@ input:hover,
 select:hover,
 textarea:hover {
     background-color: #11191e;
-
     border-color: #62727f;
 }
 
@@ -376,8 +465,7 @@ input:focus,
 select:focus,
 textarea:focus {
     outline: none;
-
-    border-color: #a8d941;
+    border-color: var(--green);
 
     box-shadow:
         0 0 10px rgba(168, 217, 65, 0.32);
@@ -385,43 +473,46 @@ textarea:focus {
 
 input[type="number"] {
     width: 80px;
-
     text-align: center;
 }
 
+textarea {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    min-height: 120px;
+    resize: vertical;
+}
 
 /* =========================================
    BUTTONS
    ========================================= */
 
-button {
-    background:
-        linear-gradient(
-            180deg,
-            #ffb13b 0%,
-            #ff9f1c 55%,
-            #e48300 100%
-        );
+button,
+.button-link {
+    display: inline-block;
+
+    background: linear-gradient(
+        180deg,
+        #ffb13b 0%,
+        #ff9f1c 55%,
+        #e48300 100%
+    );
 
     color: #111418;
 
-    border:
-        2px solid #ffc35c;
-
-    padding:
-        12px
-        24px;
-
-    margin:
-        12px;
+    border: 2px solid #ffc35c;
+    padding: 12px 24px;
+    margin: 12px;
 
     font-size: 0.95rem;
-
     font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
 
     text-transform: uppercase;
-
     letter-spacing: 1.2px;
+    text-decoration: none;
+    text-align: center;
 
     cursor: pointer;
 
@@ -435,37 +526,33 @@ button {
         box-shadow 0.18s ease;
 }
 
-button:hover {
-    background: #a8d941;
-
+button:hover,
+.button-link:hover {
+    background: var(--green);
+    color: #111418;
     border-color: #d8ff78;
 
     box-shadow:
         0 4px 0 #587816,
         0 0 18px rgba(168, 217, 65, 0.42);
 
-    transform:
-        translateY(-2px);
+    transform: translateY(-2px);
+    text-shadow: none;
 }
 
-button:active {
-    transform:
-        translateY(2px);
-
-    box-shadow:
-        0 2px 0 #8d5200;
+button:active,
+.button-link:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #8d5200;
 }
-
 
 /* =========================================
-   LINKS
+   STANDARD LINKS
    ========================================= */
 
 a {
-    color: #a8d941;
-
+    color: var(--green);
     font-weight: bold;
-
     text-decoration: none;
 
     transition:
@@ -474,117 +561,256 @@ a {
 }
 
 a:hover {
-    color: #ff9f1c;
-
-    text-decoration: none;
+    color: var(--orange);
 
     text-shadow:
         0 0 8px rgba(255, 159, 28, 0.35);
 }
 
-
 /* =========================================
-   ORDER SUMMARY
-   AND REVIEW CARDS
+   CART STATUS ON HOMEPAGE
    ========================================= */
 
-section > div {
-    background:
-        linear-gradient(
-            90deg,
-            #12191e,
-            #10161a
-        );
-
-    border-left:
-        4px solid #2f6f67;
-
-    max-width:
-        800px;
-
-    margin:
-        18px
-        auto;
-
-    padding:
-        18px
-        22px;
-
-    text-align:
-        left;
-
-    box-shadow:
-        0 5px 12px rgba(0, 0, 0, 0.22);
+.cart-section,
+.reviews-section {
+    max-width: 1000px;
 }
 
+#cartStatus {
+    max-width: 800px;
+    margin: 18px auto;
+    padding: 18px 22px;
 
-/* Highlight order confirmation */
+    background: #10161a;
+    border-left: 4px solid var(--green);
 
-#orderSummary {
-    border-left-color: #a8d941;
-
-    margin-top: 22px;
+    text-align: center;
 }
 
-#orderSummary h3,
-#feedbackMessage h3 {
-    color: #a8d941;
+#cartStatus p {
+    text-align: center;
 }
 
+/* =========================================
+   CART PAGE
+   ========================================= */
 
-/* Hide empty JavaScript output areas */
+#cartItems,
+#cartTotal,
+#cartMessage {
+    max-width: 800px;
+    margin: 18px auto;
+    padding: 18px 22px;
 
-#orderSummary:empty,
+    background: #10161a;
+    border-left: 4px solid var(--teal);
+
+    text-align: left;
+}
+
+.cart-item {
+    max-width: 760px;
+    margin: 16px auto;
+    padding: 18px 22px;
+
+    background: #12191e;
+    border-left: 4px solid var(--teal);
+
+    text-align: left;
+}
+
+.cart-item h3 {
+    margin-bottom: 10px;
+}
+
+#cartTotal {
+    border-left-color: var(--orange);
+}
+
+#cartTotal p {
+    color: var(--orange);
+    font-size: 1.15rem;
+    text-align: center;
+}
+
+.cart-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+#cartMessage {
+    border-left-color: var(--green);
+}
+
+#cartMessage:empty {
+    display: none;
+}
+
+/* =========================================
+   CHECKOUT PAGE
+   ========================================= */
+
+#checkoutSummary,
+#checkoutMessage {
+    max-width: 800px;
+    margin: 18px auto;
+    padding: 18px 22px;
+
+    background: #10161a;
+    border-left: 4px solid var(--teal);
+
+    text-align: left;
+}
+
+#checkoutSummary {
+    margin-bottom: 26px;
+}
+
+.checkout-form {
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.checkout-form label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 4px;
+}
+
+.checkout-form input,
+.checkout-form textarea {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+}
+
+.checkout-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+#checkoutMessage {
+    border-left-color: var(--green);
+}
+
+#checkoutMessage:empty {
+    display: none;
+}
+
+/* =========================================
+   ORDER CONFIRMATION PAGE
+   ========================================= */
+
+#confirmationDetails {
+    max-width: 800px;
+    margin: 24px auto;
+    padding: 22px;
+
+    background: #10161a;
+    border-left: 4px solid var(--green);
+
+    text-align: left;
+}
+
+.confirmation-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 26px;
+}
+
+/* =========================================
+   REVIEWS PAGE
+   ========================================= */
+
+.review-card {
+    max-width: 760px;
+    margin: 18px auto;
+    padding: 18px 22px;
+
+    background: linear-gradient(
+        90deg,
+        #12191e,
+        #10161a
+    );
+
+    border-left: 4px solid var(--teal);
+    text-align: left;
+}
+
+.review-rating {
+    color: var(--orange);
+    font-weight: bold;
+}
+
+.review-form {
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.review-form label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 4px;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+}
+
+.review-form button {
+    display: block;
+    margin: 24px auto 12px;
+}
+
+#feedbackMessage {
+    max-width: 760px;
+    margin: 20px auto;
+    padding: 18px 22px;
+
+    background: #10161a;
+    border-left: 4px solid var(--green);
+    text-align: left;
+}
+
 #feedbackMessage:empty {
     display: none;
 }
 
-
 /* =========================================
-   FEEDBACK FORM
+   ADDITIONAL STATUS MESSAGES
    ========================================= */
 
-textarea {
-    display: block;
+#orderSummary,
+#orderMessage {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 18px 22px;
 
-    width: 90%;
-
-    max-width: 600px;
-
-    min-height: 120px;
-
-    margin:
-        6px
-        auto;
-
-    resize: vertical;
+    background: #10161a;
+    border-left: 4px solid var(--green);
 }
 
-
-/* Feedback response */
-
-#feedbackMessage {
-    border-left-color: #a8d941;
-
-    margin-top: 25px;
+#orderSummary:empty,
+#orderMessage:empty {
+    display: none;
 }
-
-
-/* =========================================
-   REVIEW / NAVIGATION PANELS
-   ========================================= */
-
-main > section:last-of-type > p {
-    text-align: center;
-}
-
-
-/* Center homepage review invitation */
-
-main > section:nth-of-type(2) > p {
-    text-align: center;
-}
-
 
 /* =========================================
    FOOTER
@@ -592,21 +818,11 @@ main > section:nth-of-type(2) > p {
 
 footer {
     text-align: center;
+    padding: 24px;
+    margin-top: 40px;
 
-    padding:
-        24px;
-
-    margin-top:
-        40px;
-
-    background:
-        #090d10;
-
-    border-top:
-        2px solid #2f6f67;
-
-    color:
-        #aab4be;
+    background: #090d10;
+    border-top: 2px solid var(--teal);
 
     box-shadow:
         0 -5px 18px rgba(0, 0, 0, 0.28);
@@ -614,717 +830,115 @@ footer {
 
 footer p {
     margin: 0;
-
-    color: #aab4be;
-
+    color: var(--muted);
     font-size: 0.9rem;
-
     text-align: center;
 }
 
-
 /* =========================================
-   FUTURE TWO-COLUMN MENU GRID
+   TABLET / SMALL SCREEN RESPONSIVENESS
    ========================================= */
 
-.menu-grid {
-    display: grid;
+@media (max-width: 900px) {
 
-    grid-template-columns:
-        repeat(
-            2,
-            minmax(0, 1fr)
-        );
+    main {
+        width: 95%;
+    }
 
-    gap:
-        24px;
+    .menu-section {
+        padding: 22px;
+    }
 
-    margin-top:
-        28px;
-}
+    .menu-grid {
+        gap: 16px;
+    }
 
+    .menu-card {
+        padding: 16px;
+    }
 
-/* Future menu product cards */
-
-.menu-card {
-    background:
-        linear-gradient(
-            145deg,
-            #171f25,
-            #11171b
-        );
-
-    border:
-        1px solid #35424d;
-
-    border-top:
-        3px solid #2f6f67;
-
-    padding:
-        22px;
-
-    text-align:
-        center;
-
-    box-shadow:
-        0 8px 18px rgba(0, 0, 0, 0.38);
-
-    transition:
-        transform 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.menu-card:hover {
-    transform:
-        translateY(-3px);
-
-    border-top-color:
-        #ff9f1c;
-
-    box-shadow:
-        0 10px 22px rgba(0, 0, 0, 0.48),
-        0 0 18px rgba(255, 159, 28, 0.14);
-}
-
-
-/* Future menu card images */
-
-.menu-card img {
-    width: 100%;
-
-    max-width: 100%;
-
-    margin:
-        0
-        auto
-        18px;
+    .menu-card h3 {
+        font-size: 1.15rem;
+    }
 }
 
 /* =========================================
-   ASSIGNMENT 3 - INTERACTIVE PRODUCT DETAILS
-   ========================================= */
-
-.product-details {
-    display: none;
-
-    background:
-        linear-gradient(
-            90deg,
-            #12191e,
-            #10161a
-        );
-
-    border-left:
-        4px solid #a8d941;
-
-    max-width:
-        700px;
-
-    margin:
-        16px auto;
-
-    padding:
-        14px 18px;
-
-    text-align:
-        left;
-
-    color:
-        #f2f3f4;
-
-    box-shadow:
-        0 5px 12px rgba(0, 0, 0, 0.22);
-}
-
-
-/* =========================================
-   ORDER TOTAL
-   ========================================= */
-
-#orderTotal {
-    border-left-color:
-        #ff9f1c;
-
-    margin-top:
-        18px;
-}
-
-#orderTotal p {
-    text-align:
-        center;
-
-    color:
-        #ff9f1c;
-
-    font-size:
-        1.15rem;
-}
-
-
-/* =========================================
-   ORDER SUBMISSION MESSAGE
-   ========================================= */
-
-#orderMessage {
-    border-left-color:
-        #a8d941;
-
-    margin-top:
-        24px;
-}
-
-#orderMessage:empty {
-    display:
-        none;
-}
-
-
-/* =========================================
-   MAIN NAVIGATION
-   ========================================= */
-
-.main-nav {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 18px;
-
-    padding:
-        14px
-        20px;
-
-    background:
-        #0b1014;
-
-    border-bottom:
-        1px solid #35424d;
-}
-
-.main-nav a {
-    display: inline-block;
-
-    padding:
-        10px
-        18px;
-
-    border:
-        1px solid transparent;
-
-    text-transform:
-        uppercase;
-
-    letter-spacing:
-        1px;
-}
-
-.main-nav a:hover {
-    border-color:
-        #ff9f1c;
-}
-
-.main-nav a.active {
-    color:
-        #ff9f1c;
-
-    border-bottom:
-        2px solid #ff9f1c;
-}
-
-
-/* =========================================
-   GENERAL PAGE INTRO
-   ========================================= */
-
-.page-intro {
-    text-align:
-        center;
-
-    max-width:
-        760px;
-
-    margin:
-        0 auto 20px;
-}
-
-
-/* =========================================
-   PRODUCT PRICE
-   ========================================= */
-
-.product-price {
-    color:
-        #ff9f1c;
-
-    font-size:
-        1.2rem;
-
-    font-weight:
-        bold;
-
-    text-align:
-        center;
-}
-
-
-/* =========================================
-   CART STATUS
-   ========================================= */
-
-#cartStatus {
-    border-left-color:
-        #a8d941;
-
-    margin-top:
-        20px;
-}
-
-#cartStatus p {
-    text-align:
-        center;
-}
-
-
-/* =========================================
-   CART PAGE
-   ========================================= */
-
-.cart-item {
-    background:
-        linear-gradient(
-            90deg,
-            #12191e,
-            #10161a
-        );
-
-    border-left:
-        4px solid #2f6f67;
-
-    margin:
-        16px auto;
-
-    padding:
-        18px 22px;
-
-    max-width:
-        760px;
-
-    text-align:
-        left;
-}
-
-.cart-item h3 {
-    margin-bottom:
-        10px;
-}
-
-#cartTotal {
-    border-left-color:
-        #ff9f1c;
-
-    margin-top:
-        20px;
-}
-
-#cartTotal p {
-    color:
-        #ff9f1c;
-
-    font-size:
-        1.15rem;
-
-    text-align:
-        center;
-}
-
-.cart-actions {
-    display:
-        flex;
-
-    justify-content:
-        center;
-
-    flex-wrap:
-        wrap;
-
-    gap:
-        12px;
-
-    margin-top:
-        20px;
-}
-
-#cartMessage {
-    border-left-color:
-        #a8d941;
-
-    margin-top:
-        20px;
-}
-
-#cartMessage:empty {
-    display:
-        none;
-}
-
-
-/* =========================================
-   CHECKOUT PAGE
-   ========================================= */
-
-#checkoutSummary {
-    border-left-color:
-        #2f6f67;
-
-    margin-bottom:
-        26px;
-}
-
-.checkout-form {
-    max-width:
-        650px;
-
-    margin:
-        0 auto;
-
-    text-align:
-        left;
-}
-
-.checkout-form label {
-    display:
-        block;
-
-    margin-top:
-        16px;
-
-    margin-bottom:
-        4px;
-}
-
-.checkout-form input,
-.checkout-form textarea {
-    display:
-        block;
-
-    width:
-        100%;
-
-    max-width:
-        100%;
-
-    margin:
-        0;
-}
-
-.checkout-actions {
-    display:
-        flex;
-
-    justify-content:
-        center;
-
-    flex-wrap:
-        wrap;
-
-    gap:
-        12px;
-
-    margin-top:
-        24px;
-}
-
-#checkoutMessage {
-    border-left-color:
-        #a8d941;
-
-    margin-top:
-        24px;
-}
-
-#checkoutMessage:empty {
-    display:
-        none;
-}
-
-
-/* =========================================
-   CONFIRMATION PAGE
-   ========================================= */
-
-#confirmationDetails {
-    border-left-color:
-        #a8d941;
-
-    margin-top:
-        24px;
-}
-
-.confirmation-actions {
-    display:
-        flex;
-
-    justify-content:
-        center;
-
-    align-items:
-        center;
-
-    flex-wrap:
-        wrap;
-
-    gap:
-        14px;
-
-    margin-top:
-        26px;
-}
-
-
-/* =========================================
-   BUTTON-LIKE LINKS
-   ========================================= */
-
-.button-link {
-    display:
-        inline-block;
-
-    background:
-        linear-gradient(
-            180deg,
-            #ffb13b 0%,
-            #ff9f1c 55%,
-            #e48300 100%
-        );
-
-    color:
-        #111418;
-
-    border:
-        2px solid #ffc35c;
-
-    padding:
-        12px 24px;
-
-    margin:
-        12px;
-
-    font-size:
-        0.95rem;
-
-    font-weight:
-        bold;
-
-    text-transform:
-        uppercase;
-
-    letter-spacing:
-        1.2px;
-
-    box-shadow:
-        0 4px 0 #8d5200,
-        0 8px 16px rgba(0, 0, 0, 0.45);
-}
-
-.button-link:hover {
-    background:
-        #a8d941;
-
-    color:
-        #111418;
-
-    border-color:
-        #d8ff78;
-
-    box-shadow:
-        0 4px 0 #587816,
-        0 0 18px rgba(168, 217, 65, 0.42);
-
-    transform:
-        translateY(-2px);
-
-    text-shadow:
-        none;
-}
-
-
-/* =========================================
-   REVIEWS PAGE
-   ========================================= */
-
-.review-card {
-    background:
-        linear-gradient(
-            90deg,
-            #12191e,
-            #10161a
-        );
-
-    border-left:
-        4px solid #2f6f67;
-
-    max-width:
-        760px;
-
-    margin:
-        18px auto;
-
-    padding:
-        18px 22px;
-
-    text-align:
-        left;
-}
-
-.review-rating {
-    color:
-        #ff9f1c;
-
-    font-weight:
-        bold;
-}
-
-.review-form {
-    max-width:
-        650px;
-
-    margin:
-        0 auto;
-
-    text-align:
-        left;
-}
-
-.review-form label {
-    display:
-        block;
-
-    margin-top:
-        16px;
-
-    margin-bottom:
-        4px;
-}
-
-.review-form input,
-.review-form select,
-.review-form textarea {
-    display:
-        block;
-
-    width:
-        100%;
-
-    max-width:
-        100%;
-
-    margin:
-        0;
-}
-
-.review-form button {
-    display:
-        block;
-
-    margin:
-        24px auto 12px;
-}
-
-/* =========================================
-   RESPONSIVE / MOBILE DESIGN
+   MOBILE RESPONSIVENESS
    ========================================= */
 
 @media (max-width: 700px) {
 
-    .main-nav {
-        flex-direction:
-            column;
-
-        align-items:
-            center;
-
-        gap:
-            6px;
-    }
-
-    .main-nav a {
-        width:
-            100%;
-
-        max-width:
-            260px;
-
-        text-align:
-            center;
-    }
-
-    .cart-actions,
-    .checkout-actions,
-    .confirmation-actions {
-        flex-direction:
-            column;
-
-        align-items:
-            center;
-    }
-
-
     header {
-        padding:
-            32px
-            15px
-            26px;
+        padding: 28px 15px 22px;
     }
 
     header h1 {
         font-size: 2.4rem;
-
         letter-spacing: 6px;
     }
 
     header p {
         font-size: 0.9rem;
-
         letter-spacing: 1px;
+    }
+
+    .main-nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .main-nav a {
+        width: 100%;
+        max-width: 260px;
+        text-align: center;
     }
 
     main {
         width: 94%;
-
-        margin-top: 22px;
+        margin-top: 18px;
     }
 
-    section {
-        padding:
-            22px
-            18px;
+    section,
+    .menu-section {
+        padding: 20px 15px;
     }
 
     h2 {
         font-size: 1.55rem;
     }
 
-    section img {
+    .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .menu-card {
+        padding: 18px;
+    }
+
+    .menu-card img {
         max-width: 100%;
     }
 
-    .menu-grid {
-        grid-template-columns: 1fr;
+    .cart-actions,
+    .checkout-actions,
+    .confirmation-actions {
+        flex-direction: column;
+        align-items: center;
     }
 
-    input,
-    select {
-        max-width: 90%;
-    }
-
-    textarea {
+    .checkout-form,
+    .review-form {
         width: 100%;
     }
 
-    button {
-        width: auto;
-
+    button,
+    .button-link {
         max-width: 100%;
     }
 }
+
+/* =========================================
+   END OF STYLESHEET
+   ========================================= */

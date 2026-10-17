@@ -1093,3 +1093,82 @@ document.addEventListener(
 
     }
 );
+
+
+/* =========================================
+   PROJECT DELIVERABLE 2
+   DYNAMIC NAVIGATION CART COUNTER
+   ========================================= */
+
+/*
+   Updates the cart quantity displayed in
+   the persistent navigation.
+
+   Counts total product quantities, not
+   just the number of unique products.
+*/
+
+function updateNavCartCount() {
+
+    const cartCountElement =
+        document.getElementById("cartCount");
+
+    // Some pages may not have the counter yet.
+    if (cartCountElement === null) {
+        return;
+    }
+
+    // Retrieve cart from localStorage.
+    const cart = getCart();
+
+    // Use our existing cart quantity function.
+    const totalQuantity = getCartItemCount(cart);
+
+    // Update the navigation text.
+    cartCountElement.textContent = totalQuantity;
+}
+
+
+/* =========================================
+   UPDATE COUNTER WHEN CART IS SAVED
+   ========================================= */
+
+// Preserve the original saveCart function.
+const originalSaveCart = saveCart;
+
+// Extend it to refresh the navigation.
+saveCart = function(cart) {
+
+    originalSaveCart(cart);
+
+    updateNavCartCount();
+};
+
+
+/* =========================================
+   UPDATE COUNTER WHEN CART IS CLEARED
+   ========================================= */
+
+// Preserve the original clearCart function.
+const originalClearCart = clearCart;
+
+clearCart = function() {
+
+    originalClearCart();
+
+    updateNavCartCount();
+};
+
+
+/* =========================================
+   INITIALIZE COUNTER ON PAGE LOAD
+   ========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        updateNavCartCount();
+
+    }
+);
