@@ -1,36 +1,77 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Smoosh Food Truck | Menu</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        [ng-cloak] {
+            display: none !important;
+        }
+
+        .menu-category {
+            margin: 28px 0 34px;
+        }
+
+        .menu-category h3.category-heading {
+            color: #ff9f1c;
+            text-align: left;
+            text-transform: uppercase;
+            border-bottom: 1px solid #2f6f67;
+            padding-bottom: 10px;
+            margin-bottom: 18px;
+            font-size: 1.4rem;
+        }
+
+        .menu-card select {
+            width: 100%;
+            max-width: 300px;
+            margin: 8px auto;
+        }
+
+        .menu-message {
+            max-width: 760px;
+            margin: 16px auto;
+            padding: 12px;
+            background: #10161a;
+            border-left: 4px solid #a8d941;
+        }
+
+        .menu-error {
+            border-left-color: #ff9f1c;
+        }
+    </style>
+
 </head>
 
 <body>
 
-    <!-- =========================================
-         HEADER / BRANDING
-         ========================================= -->
+    <!-- =====================================
+         SMOOSH HEADER
+         ===================================== -->
 
     <header>
         <h1>SMOOSH</h1>
 
-        <p>
-            Burgers. Dogs. Smooshed Right.
-        </p>
+        <p>Burgers. Dogs. Smooshed Right.</p>
     </header>
 
+    <!-- =====================================
+         NAVIGATION
+         ===================================== -->
 
-    <!-- =========================================
-         MAIN NAVIGATION
-         ========================================= -->
+    <nav class="main-nav"
+         aria-label="Main navigation">
 
-    <nav class="main-nav" aria-label="Main navigation">
+        <a href="home.html">
+            Home
+        </a>
 
         <a href="index.html" class="active">
             Menu
@@ -46,280 +87,152 @@
 
     </nav>
 
-
-    <!-- =========================================
+    <!-- =====================================
          MAIN CONTENT
-         ========================================= -->
+         ===================================== -->
 
     <main>
 
-        <!-- =====================================
-             MENU / PRODUCT SELECTION
-             Customers see products immediately
-             ===================================== -->
+        <!-- =================================
+             DATABASE-DRIVEN MENU
+             AngularJS 1.x
+             ================================= -->
 
-        <section class="menu-section" id="menu">
+        <section class="menu-section"
+                 id="menu"
+                 ng-app="smooshMenuApp"
+                 ng-controller="MenuController"
+                 ng-cloak>
 
-            <h2>
-                THE SMOOSH MENU
-            </h2>
+            <h2>THE SMOOSH MENU</h2>
 
             <p class="page-intro">
-                Fresh off the grill. Built your way.
-                Pick your favorites, choose your quantity,
-                and order ahead for pickup.
+                Skip the line. Order ahead. Pick up fresh.
+                Choose your favorites, build your order,
+                and send it to the truck before you arrive.
             </p>
 
+            <!-- LOADING STATUS -->
 
-            <div class="menu-grid">
+            <p ng-if="loading">
+                Loading the Smoosh menu...
+            </p>
 
+            <!-- API ERROR -->
 
-                <!-- =================================
-                     PRODUCT 1: THE SMOOSH
-                     ================================= -->
+            <div class="menu-message menu-error"
+                 ng-if="errorMessage"
+                 role="alert">
 
-                <div class="menu-card">
+                {{ errorMessage }}
 
-                    <h3>
-                        The Smoosh
-                    </h3>
+            </div>
 
-                    <img
-                        src="images/thesmoosh.png"
-                        alt="The Smoosh signature burger"
-                        onmouseenter="showProductInfo('smooshDetails')"
-                        onmouseleave="hideProductInfo('smooshDetails')"
-                    >
+            <!-- CART FEEDBACK -->
 
-                    <p>
-                        Two smashed beef patties, melted American cheese,
-                        grilled onions, pickles, and Smoosh sauce on a
-                        toasted bun.
-                    </p>
+            <div class="menu-message"
+                 ng-if="successMessage"
+                 role="status">
 
-                    <p class="product-price">
-                        $8.99
-                    </p>
+                {{ successMessage }}
 
-                    <div
-                        id="smooshDetails"
-                        class="product-details"
-                    >
-                        Two crispy-edged smash patties layered with cheese
-                        and finished with our signature Smoosh sauce.
+            </div>
+
+            <!-- MENU CATEGORIES -->
+
+            <div ng-repeat="category in categories track by category.name"
+                 class="menu-category">
+
+                <h3 class="category-heading">
+                    {{ category.name }}
+                </h3>
+
+                <div class="menu-grid">
+
+                    <!-- PRODUCT CARD -->
+
+                    <div class="menu-card"
+                         ng-repeat="product in category.items track by product._id">
+
+                        <h3>{{ product.name }}</h3>
+
+                        <img
+                            ng-src="{{ product.image }}"
+                            alt="{{ product.name }}"
+                            ng-mouseenter="product.showDetails = true"
+                            ng-mouseleave="product.showDetails = false"
+                        >
+
+                        <p>
+                            {{ product.description }}
+                        </p>
+
+                        <p class="product-price">
+                            {{ product.price | currency }}
+                        </p>
+
+                        <!-- PRODUCT HOVER DETAILS -->
+
+                        <div class="product-details"
+                             ng-show="product.showDetails"
+                             style="display: block;">
+
+                            {{ product.description }}
+
+                        </div>
+
+                        <!-- DRINK OPTIONS -->
+
+                        <label
+                            ng-if="product.options && product.options.length"
+                            for="option-{{ product._id }}">
+
+                            Choose Your Drink:
+                        </label>
+
+                        <select
+                            ng-if="product.options && product.options.length"
+                            id="option-{{ product._id }}"
+                            ng-model="product.selectedOption"
+                            ng-options="option for option in product.options">
+
+                            <option value="">
+                                Select a drink
+                            </option>
+
+                        </select>
+
+                        <!-- QUANTITY -->
+
+                        <label for="quantity-{{ product._id }}">
+                            Quantity:
+                        </label>
+
+                        <input
+                            type="number"
+                            id="quantity-{{ product._id }}"
+                            ng-model="product.quantity"
+                            min="1"
+                            step="1"
+                        >
+
+                        <!-- ADD TO CART -->
+
+                        <button
+                            type="button"
+                            ng-click="addProductToCart(product)">
+
+                            Add to Cart
+
+                        </button>
+
                     </div>
-
-                    <label for="quantitySmoosh">
-                        Quantity:
-                    </label>
-
-                    <input
-                        type="number"
-                        id="quantitySmoosh"
-                        value="1"
-                        min="1"
-                        step="1"
-                    >
-
-                    <button
-                        type="button"
-                        onclick="addToCart(
-                            'The Smoosh',
-                            8.99,
-                            'quantitySmoosh'
-                        )"
-                    >
-                        Add to Cart
-                    </button>
-
-                </div>
-
-
-                <!-- =================================
-                     PRODUCT 2: THE DOUBLE SMOOSH
-                     ================================= -->
-
-                <div class="menu-card">
-
-                    <h3>
-                        The Double Smoosh
-                    </h3>
-
-                    <img
-                        src="images/doublesmoosh.png"
-                        alt="The Double Smoosh burger"
-                        onmouseenter="showProductInfo('doubleDetails')"
-                        onmouseleave="hideProductInfo('doubleDetails')"
-                    >
-
-                    <p>
-                        A bigger version of the original Smoosh with
-                        extra smashed beef, extra cheese, grilled onions,
-                        pickles, and Smoosh sauce.
-                    </p>
-
-                    <p class="product-price">
-                        $11.99
-                    </p>
-
-                    <div
-                        id="doubleDetails"
-                        class="product-details"
-                    >
-                        Built for a bigger appetite with extra beef
-                        and cheese while keeping the original Smoosh flavor.
-                    </div>
-
-                    <label for="quantityDouble">
-                        Quantity:
-                    </label>
-
-                    <input
-                        type="number"
-                        id="quantityDouble"
-                        value="1"
-                        min="1"
-                        step="1"
-                    >
-
-                    <button
-                        type="button"
-                        onclick="addToCart(
-                            'The Double Smoosh',
-                            11.99,
-                            'quantityDouble'
-                        )"
-                    >
-                        Add to Cart
-                    </button>
-
-                </div>
-
-
-                <!-- =================================
-                     PRODUCT 3: THE SPICY SMOOSH
-                     ================================= -->
-
-                <div class="menu-card">
-
-                    <h3>
-                        The Spicy Smoosh
-                    </h3>
-
-                    <img
-                        src="images/spicysmoosh.png"
-                        alt="The Spicy Smoosh burger"
-                        onmouseenter="showProductInfo('spicyDetails')"
-                        onmouseleave="hideProductInfo('spicyDetails')"
-                    >
-
-                    <p>
-                        Two smashed beef patties, cheese, grilled onions,
-                        pickles, spicy peppers, and a hotter version of
-                        Smoosh sauce.
-                    </p>
-
-                    <p class="product-price">
-                        $9.99
-                    </p>
-
-                    <div
-                        id="spicyDetails"
-                        class="product-details"
-                    >
-                        Everything you like about The Smoosh
-                        with an extra kick for customers who want some heat.
-                    </div>
-
-                    <label for="quantitySpicy">
-                        Quantity:
-                    </label>
-
-                    <input
-                        type="number"
-                        id="quantitySpicy"
-                        value="1"
-                        min="1"
-                        step="1"
-                    >
-
-                    <button
-                        type="button"
-                        onclick="addToCart(
-                            'The Spicy Smoosh',
-                            9.99,
-                            'quantitySpicy'
-                        )"
-                    >
-                        Add to Cart
-                    </button>
-
-                </div>
-
-
-                <!-- =================================
-                     PRODUCT 4: THE CRAWLER
-                     ================================= -->
-
-                <div class="menu-card">
-
-                    <h3>
-                        The Crawler
-                    </h3>
-
-                    <img
-                        src="images/thecrawler.png"
-                        alt="The Crawler signature hot dog"
-                        onmouseenter="showProductInfo('crawlerDetails')"
-                        onmouseleave="hideProductInfo('crawlerDetails')"
-                    >
-
-                    <p>
-                        A Smoosh-style loaded hot dog served on a toasted bun
-                        and finished with toppings worthy of The Crawler name.
-                    </p>
-
-                    <p class="product-price">
-                        $7.99
-                    </p>
-
-                    <div
-                        id="crawlerDetails"
-                        class="product-details"
-                    >
-                        Our signature hot dog option for customers
-                        who want something different from a burger.
-                    </div>
-
-                    <label for="quantityCrawler">
-                        Quantity:
-                    </label>
-
-                    <input
-                        type="number"
-                        id="quantityCrawler"
-                        value="1"
-                        min="1"
-                        step="1"
-                    >
-
-                    <button
-                        type="button"
-                        onclick="addToCart(
-                            'The Crawler',
-                            7.99,
-                            'quantityCrawler'
-                        )"
-                    >
-                        Add to Cart
-                    </button>
 
                 </div>
 
             </div>
 
         </section>
-
 
         <!-- =====================================
              SHOPPING CART STATUS
@@ -327,43 +240,31 @@
 
         <section class="cart-section">
 
-            <h2>
-                READY TO REVIEW?
-            </h2>
+            <h2>READY TO REVIEW?</h2>
 
             <p class="page-intro">
-                Your selected items stay in your cart while you
-                explore the menu. Review your order whenever
-                you're ready.
+                Your selected items stay in your cart
+                while you explore the menu.
+                Review your order whenever you're ready.
             </p>
 
             <div id="cartStatus">
-
-                <p>
-                    Your cart is currently empty.
-                </p>
-
+                <p>Your cart is currently empty.</p>
             </div>
 
-            <a
-                href="cart.html"
-                class="button-link"
-            >
+            <a href="cart.html" class="button-link">
                 Review Cart
             </a>
 
         </section>
 
-
         <!-- =====================================
-             REVIEWS AND FEEDBACK
+             REVIEWS
              ===================================== -->
 
         <section class="reviews-section">
 
-            <h2>
-                WHAT THE CRAWLERS ARE SAYING
-            </h2>
+            <h2>WHAT THE CRAWLERS ARE SAYING</h2>
 
             <p class="page-intro">
                 Already survived a Smoosh encounter?
@@ -371,10 +272,7 @@
                 or leave us your own feedback.
             </p>
 
-            <a
-                href="reviews.html"
-                class="button-link"
-            >
+            <a href="reviews.html" class="button-link">
                 Reviews & Feedback
             </a>
 
@@ -382,25 +280,27 @@
 
     </main>
 
-
-    <!-- =========================================
+    <!-- =====================================
          FOOTER
-         ========================================= -->
+         ===================================== -->
 
     <footer>
-
         <p>
             Smoosh Food Truck | Corpus Christi, Texas
         </p>
-
     </footer>
 
-
-    <!-- =========================================
+    <!-- =====================================
          JAVASCRIPT
-         ========================================= -->
+         ===================================== -->
 
     <script src="script.js"></script>
+
+    <!-- AngularJS 1.x -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+
+    <!-- SMOOSH DATABASE MENU -->
+    <script src="menu-angular.js"></script>
 
 </body>
 

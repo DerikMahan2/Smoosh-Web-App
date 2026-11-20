@@ -1,7 +1,53 @@
+
+/*
+=========================================
+SMOOSH FOOD TRUCK
+Project Deliverable 3
+Front-End JavaScript
+=========================================
+
+Shopping Cart
+Checkout and Order Confirmation
+MongoDB-Backed Reviews and Feedback
+=========================================
+*/
+
+
 /* =========================================
-   SMOOSH FOOD TRUCK
-   Assignment 3 JavaScript
+   SHARED HELPERS
    ========================================= */
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(
+        /[&<>"']/g,
+        function (character) {
+            const replacements = {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            };
+
+            return replacements[character];
+        }
+    );
+}
+
+function formatMoney(value) {
+    return Number(value).toFixed(2);
+}
+
+async function readApiError(response) {
+    try {
+        const data = await response.json();
+
+        return data.error ||
+            "The request could not be completed.";
+    } catch (error) {
+        return "The request could not be completed.";
+    }
+}
 
 
 /* =========================================
@@ -9,132 +55,92 @@
    ========================================= */
 
 function getCart() {
+    try {
+        const savedCart =
+            localStorage.getItem("smooshCart");
 
-    var savedCart =
-        localStorage.getItem("smooshCart");
+        if (savedCart === null) {
+            return [];
+        }
 
+        const cart = JSON.parse(savedCart);
 
-    if (savedCart === null) {
+        return Array.isArray(cart) ? cart : [];
 
+    } catch (error) {
+        console.error("Cart retrieval error:", error);
         return [];
-
     }
-
-
-    return JSON.parse(savedCart);
 }
 
-
 function saveCart(cart) {
-
     localStorage.setItem(
         "smooshCart",
         JSON.stringify(cart)
     );
+
+    updateNavCartCount();
 }
 
 
 /* =========================================
    ADD ITEM TO CART
+   Legacy Assignment 3 Function
    ========================================= */
 
 function addToCart(productName, price, quantityId) {
-
-    var quantityInput =
+    const quantityInput =
         document.getElementById(quantityId);
 
-
-    var quantity =
-        Number(quantityInput.value);
-
-
-    if (
-        quantity < 1 ||
-        Number.isInteger(quantity) === false
-    ) {
-
-        alert(
-            "Please enter a valid quantity of at least 1."
-        );
-
+    if (!quantityInput) {
         return;
     }
 
-
-    var cart =
-        getCart();
-
-
-    var productFound =
-        false;
-
-
-    for (
-        var i = 0;
-        i < cart.length;
-        i++
-    ) {
-
-        if (
-            cart[i].name === productName
-        ) {
-
-            cart[i].quantity +=
-                quantity;
-
-
-            cart[i].total =
-                cart[i].price *
-                cart[i].quantity;
-
-
-            productFound =
-                true;
-        }
-    }
-
+    const quantity = Number(quantityInput.value);
 
     if (
-        productFound === false
+        !Number.isInteger(quantity) ||
+        quantity < 1
     ) {
-
-        var item = {
-
-            name:
-                productName,
-
-            price:
-                price,
-
-            quantity:
-                quantity,
-
-            total:
-                price * quantity
-
-        };
-
-
-        cart.push(item);
+        alert(
+            "Please enter a valid quantity of at least 1."
+        );
+        return;
     }
 
+    const cart = getCart();
+
+    const existingItem = cart.find(
+        item => item.name === productName
+    );
+
+    if (existingItem) {
+        existingItem.quantity += quantity;
+
+        existingItem.total = Math.round(
+            existingItem.price *
+            existingItem.quantity * 100
+        ) / 100;
+    } else {
+        cart.push({
+            name: productName,
+            price: Number(price),
+            quantity: quantity,
+            total: Math.round(
+                Number(price) * quantity * 100
+            ) / 100
+        });
+    }
 
     saveCart(cart);
-
-
     updateCartStatus();
 
-
     alert(
-        quantity +
-        " " +
-        productName +
+        quantity + " " + productName +
         " item(s) added to your cart."
     );
 
-
-    quantityInput.value =
-        1;
+    quantityInput.value = 1;
 }
 
 
@@ -143,88 +149,65 @@ function addToCart(productName, price, quantityId) {
    ========================================= */
 
 function showProductInfo(detailId) {
+    const detailBox =
+        document.getElementById(detailId);
 
-    var detailBox =
-        document.getElementById(
-            detailId
-        );
-
-
-    if (
-        detailBox !== null
-    ) {
-
-        detailBox.style.display =
-            "block";
+    if (detailBox) {
+        detailBox.style.display = "block";
     }
 }
 
-
 function hideProductInfo(detailId) {
+    const detailBox =
+        document.getElementById(detailId);
 
-    var detailBox =
-        document.getElementById(
-            detailId
-        );
-
-
-    if (
-        detailBox !== null
-    ) {
-
-        detailBox.style.display =
-            "none";
+    if (detailBox) {
+        detailBox.style.display = "none";
     }
 }
 
 
 /* =========================================
-   CALCULATE CART TOTAL
+   CART CALCULATIONS
    ========================================= */
 
 function getCartTotal(cart) {
+    let total = 0;
 
-    var total =
-        0;
-
-
-    for (
-        var i = 0;
-        i < cart.length;
-        i++
-    ) {
-
-        total +=
-            cart[i].total;
+    for (const item of cart) {
+        total += Number(item.total);
     }
 
+    return Math.round(total * 100) / 100;
+}
 
-    return total;
+function getCartItemCount(cart) {
+    let count = 0;
+
+    for (const item of cart) {
+        count += Number(item.quantity);
+    }
+
+    return count;
 }
 
 
 /* =========================================
-   CALCULATE TOTAL CART ITEMS
+   NAVIGATION CART COUNTER
    ========================================= */
 
-function getCartItemCount(cart) {
+function updateNavCartCount() {
+    const cartCountElement =
+        document.getElementById("cartCount");
 
-    var itemCount =
-        0;
-
-
-    for (
-        var i = 0;
-        i < cart.length;
-        i++
-    ) {
-
-        itemCount +=
-            cart[i].quantity;
+    if (!cartCountElement) {
+        return;
     }
 
+    const cart = getCart();
 
-    return itemCount;
+    cartCountElement.textContent =
+        getCartItemCount(cart);
 }
 
 
@@ -233,76 +216,52 @@ function getCartItemCount(cart) {
    ========================================= */
 
 function updateCartStatus() {
+    const cartStatus =
+        document.getElementById("cartStatus");
 
-    var cartStatus =
-        document.getElementById(
-            "cartStatus"
-        );
-
-
-    if (
-        cartStatus === null
-    ) {
-
-        return;
-    }
-
-
-    var cart =
-        getCart();
-
-
-    if (
-        cart.length === 0
-    ) {
-
-        cartStatus.innerHTML =
-            "<p>Your cart is currently empty.</p>";
-
-        return;
-    }
-
-
-    var itemCount =
-        getCartItemCount(cart);
-
-
-    var total =
-        getCartTotal(cart);
-
-
-    cartStatus.innerHTML =
-        "<p><strong>" +
-        itemCount +
-        " item(s) in your cart</strong></p>" +
-        "<p>Current Total: $" +
-        total.toFixed(2) +
-        "</p>";
-}
-
-
-
-/* =========================================
-   CART PAGE
-   WITH QUANTITY CONTROLS
-   ========================================= */
-
-function displayCart() {
-
-    const cartItems =
-        document.getElementById("cartItems");
-
-    const cartTotal =
-        document.getElementById("cartTotal");
-
-    if (cartItems === null || cartTotal === null) {
+    if (!cartStatus) {
         return;
     }
 
     const cart = getCart();
 
     if (cart.length === 0) {
+        cartStatus.innerHTML =
+            "<p>Your cart is currently empty.</p>";
+        return;
+    }
 
+    const count = getCartItemCount(cart);
+    const total = getCartTotal(cart);
+
+    cartStatus.innerHTML =
+        "<p><strong>" +
+        count +
+        " item(s) in your cart</strong></p>" +
+        "<p>Current Total: $" +
+        formatMoney(total) +
+        "</p>";
+}
+
+
+/* =========================================
+   CART PAGE
+   ========================================= */
+
+function displayCart() {
+    const cartItems =
+        document.getElementById("cartItems");
+
+    const cartTotal =
+        document.getElementById("cartTotal");
+
+    if (!cartItems || !cartTotal) {
+        return;
+    }
+
+    const cart = getCart();
+
+    if (cart.length === 0) {
         cartItems.innerHTML =
             "<p>Your cart is currently empty.</p>";
 
@@ -316,17 +275,15 @@ function displayCart() {
     let cartHTML = "";
 
     for (let i = 0; i < cart.length; i++) {
-
         const item = cart[i];
 
         cartHTML += `
-
             <div class="cart-item">
 
-                <h3>${item.name}</h3>
+                <h3>${escapeHTML(item.name)}</h3>
 
                 <p class="cart-unit-price">
-                    $${item.price.toFixed(2)} each
+                    $${formatMoney(item.price)} each
                 </p>
 
                 <div class="cart-quantity-controls">
@@ -339,8 +296,7 @@ function displayCart() {
                         type="button"
                         class="quantity-button"
                         onclick="changeCartQuantity(${i}, -1)"
-                        aria-label="Decrease ${item.name} quantity"
-                    >
+                        aria-label="Decrease item quantity">
                         &minus;
                     </button>
 
@@ -352,8 +308,7 @@ function displayCart() {
                         type="button"
                         class="quantity-button"
                         onclick="changeCartQuantity(${i}, 1)"
-                        aria-label="Increase ${item.name} quantity"
-                    >
+                        aria-label="Increase item quantity">
                         +
                     </button>
 
@@ -361,19 +316,19 @@ function displayCart() {
 
                 <p class="cart-item-total">
                     Item Total:
-                    <strong>$${item.total.toFixed(2)}</strong>
+                    <strong>
+                        $${formatMoney(item.total)}
+                    </strong>
                 </p>
 
                 <button
                     type="button"
                     class="remove-item-button"
-                    onclick="removeCartItem(${i})"
-                >
+                    onclick="removeCartItem(${i})">
                     Remove All
                 </button>
 
             </div>
-
         `;
     }
 
@@ -384,7 +339,7 @@ function displayCart() {
     cartTotal.innerHTML = `
         <p>
             <strong>
-                Order Total: $${total.toFixed(2)}
+                Order Total: $${formatMoney(total)}
             </strong>
         </p>
     `;
@@ -394,11 +349,10 @@ function displayCart() {
 
 
 /* =========================================
-   INCREASE OR DECREASE ITEM QUANTITY
+   CHANGE CART ITEM QUANTITY
    ========================================= */
 
 function changeCartQuantity(index, adjustment) {
-
     const cart = getCart();
 
     if (
@@ -410,41 +364,28 @@ function changeCartQuantity(index, adjustment) {
         return;
     }
 
-    // Adjust the selected product quantity.
     cart[index].quantity += adjustment;
 
-    // Remove the product when quantity reaches zero.
     if (cart[index].quantity <= 0) {
-
         cart.splice(index, 1);
-
     } else {
-
-        // Recalculate this product's subtotal.
-        cart[index].total =
-            Math.round(
-                cart[index].price *
-                cart[index].quantity * 100
-            ) / 100;
+        cart[index].total = Math.round(
+            cart[index].price *
+            cart[index].quantity * 100
+        ) / 100;
     }
 
-    // Save the updated cart.
     saveCart(cart);
-
-    // Refresh the cart display and totals.
     displayCart();
-
-    // Update homepage summary if present.
     updateCartStatus();
 }
 
 
 /* =========================================
-   REMOVE ALL OF A SELECTED PRODUCT
+   REMOVE ONE CART LINE
    ========================================= */
 
 function removeCartItem(index) {
-
     const cart = getCart();
 
     if (
@@ -455,27 +396,20 @@ function removeCartItem(index) {
         return;
     }
 
-    // Delete the entire selected product line.
     cart.splice(index, 1);
 
-    // Save updated shopping cart.
     saveCart(cart);
-
-    // Refresh product list and total.
     displayCart();
-
-    // Refresh homepage summary if present.
     updateCartStatus();
 }
+
 
 /* =========================================
    CONTINUE SHOPPING
    ========================================= */
 
 function continueShopping() {
-
-    window.location.href =
-        "index.html";
+    window.location.href = "index.html";
 }
 
 
@@ -484,54 +418,33 @@ function continueShopping() {
    ========================================= */
 
 function clearCart() {
+    const cart = getCart();
 
-    var cart =
-        getCart();
-
-
-    if (
-        cart.length === 0
-    ) {
-
-        alert(
-            "Your cart is already empty."
-        );
-
+    if (cart.length === 0) {
+        alert("Your cart is already empty.");
         return;
     }
 
+    const confirmClear = confirm(
+        "Are you sure you want to clear your entire order?"
+    );
 
-    var confirmClear =
-        confirm(
-            "Are you sure you want to clear your entire order?"
-        );
+    if (!confirmClear) {
+        return;
+    }
 
+    localStorage.removeItem("smooshCart");
 
-    if (
-        confirmClear === true
-    ) {
+    displayCart();
+    updateCartStatus();
+    updateNavCartCount();
 
-        localStorage.removeItem(
-            "smooshCart"
-        );
+    const cartMessage =
+        document.getElementById("cartMessage");
 
-
-        displayCart();
-
-
-        var cartMessage =
-            document.getElementById(
-                "cartMessage"
-            );
-
-
-        if (
-            cartMessage !== null
-        ) {
-
-            cartMessage.innerHTML =
-                "<p>Your order has been cleared.</p>";
-        }
+    if (cartMessage) {
+        cartMessage.innerHTML =
+            "<p>Your order has been cleared.</p>";
     }
 }
 
@@ -541,114 +454,67 @@ function clearCart() {
    ========================================= */
 
 function proceedToCheckout() {
+    const cart = getCart();
 
-    var cart =
-        getCart();
+    if (cart.length === 0) {
+        const cartMessage =
+            document.getElementById("cartMessage");
 
-
-    if (
-        cart.length === 0
-    ) {
-
-        var cartMessage =
-            document.getElementById(
-                "cartMessage"
-            );
-
-
-        if (
-            cartMessage !== null
-        ) {
-
+        if (cartMessage) {
             cartMessage.innerHTML =
                 "<h3>Cart Empty</h3>" +
-                "<p>Please add at least one item before proceeding to checkout.</p>";
+                "<p>Please add at least one item " +
+                "before proceeding to checkout.</p>";
         }
-
 
         return;
     }
 
-
-    window.location.href =
-        "checkout.html";
+    window.location.href = "checkout.html";
 }
 
 
 /* =========================================
-   CHECKOUT SUMMARY
+   CHECKOUT ORDER SUMMARY
    ========================================= */
 
 function displayCheckoutSummary() {
+    const checkoutSummary =
+        document.getElementById("checkoutSummary");
 
-    var checkoutSummary =
-        document.getElementById(
-            "checkoutSummary"
-        );
-
-
-    if (
-        checkoutSummary === null
-    ) {
-
+    if (!checkoutSummary) {
         return;
     }
 
+    const cart = getCart();
 
-    var cart =
-        getCart();
-
-
-    if (
-        cart.length === 0
-    ) {
-
+    if (cart.length === 0) {
         checkoutSummary.innerHTML =
             "<h3>Your Cart Is Empty</h3>" +
-            "<p>Please return to the menu and add an item before checking out.</p>";
-
+            "<p>Please return to the menu and " +
+            "add an item before checking out.</p>";
         return;
     }
 
+    let summaryHTML = "<h3>Order Summary</h3>";
 
-    var summaryHTML =
-        "<h3>Order Summary</h3>";
-
-
-    for (
-        var i = 0;
-        i < cart.length;
-        i++
-    ) {
-
+    for (const item of cart) {
         summaryHTML +=
-
             "<p>" +
-
-            cart[i].quantity +
+            item.quantity +
             " × " +
-            cart[i].name +
-
+            escapeHTML(item.name) +
             " - $" +
-            cart[i].total.toFixed(2) +
-
+            formatMoney(item.total) +
             "</p>";
     }
 
-
-    var total =
-        getCartTotal(cart);
-
-
     summaryHTML +=
-
         "<p><strong>Order Total: $" +
-        total.toFixed(2) +
+        formatMoney(getCartTotal(cart)) +
         "</strong></p>";
 
-
-    checkoutSummary.innerHTML =
-        summaryHTML;
+    checkoutSummary.innerHTML = summaryHTML;
 }
 
 
@@ -657,303 +523,304 @@ function displayCheckoutSummary() {
    ========================================= */
 
 function backToCart() {
-
-    window.location.href =
-        "cart.html";
+    window.location.href = "cart.html";
 }
 
 
 /* =========================================
-   SUBMIT ORDER
+   SUBMIT ORDER TO MONGODB
+   Project Deliverable 3
    ========================================= */
 
-function submitOrder() {
+let orderSubmissionInProgress = false;
 
-    var customerName =
-        document.getElementById(
-            "customerName"
-        ).value.trim();
-
-
-    var customerPhone =
-        document.getElementById(
-            "customerPhone"
-        ).value.trim();
-
-
-    var customerEmail =
-        document.getElementById(
-            "customerEmail"
-        ).value.trim();
-
-
-    var specialInstructions =
-        document.getElementById(
-            "specialInstructions"
-        ).value.trim();
-
-
-    var checkoutMessage =
-        document.getElementById(
-            "checkoutMessage"
-        );
-
-
-    var cart =
-        getCart();
-
-
-    var hasCustomerName =
-        customerName !== "";
-
-
-    var hasCustomerPhone =
-        customerPhone !== "";
-
-
-    var hasCartItems =
-        cart.length > 0;
-
-
-    var formValid =
-        hasCustomerName &&
-        hasCustomerPhone &&
-        hasCartItems;
-
-
-    if (
-        formValid === false
-    ) {
-
-        var errorMessage =
-            "<h3>Order Not Submitted</h3>";
-
-
-        if (
-            hasCartItems === false
-        ) {
-
-            errorMessage +=
-                "<p>Your cart is empty.</p>";
-        }
-
-
-        if (
-            hasCustomerName === false
-        ) {
-
-            errorMessage +=
-                "<p>Please enter your name.</p>";
-        }
-
-
-        if (
-            hasCustomerPhone === false
-        ) {
-
-            errorMessage +=
-                "<p>Please enter your phone number.</p>";
-        }
-
-
-        checkoutMessage.innerHTML =
-            errorMessage;
-
-
+async function submitOrder() {
+    if (orderSubmissionInProgress) {
         return;
     }
 
+    const customerName =
+        document.getElementById("customerName").value.trim();
 
-    var total =
-        getCartTotal(cart);
+    const customerPhone =
+        document.getElementById("customerPhone").value.trim();
 
+    const customerEmail =
+        document.getElementById("customerEmail").value.trim();
 
-    var emailValue =
-        null;
+    const specialInstructions =
+        document.getElementById("specialInstructions")
+            .value.trim();
 
+    const checkoutMessage =
+        document.getElementById("checkoutMessage");
 
-    if (
-        customerEmail !== ""
-    ) {
-
-        emailValue =
-            customerEmail;
-    }
-
-
-    var instructionsValue =
-        null;
-
+    const cart = getCart();
 
     if (
-        specialInstructions !== ""
+        !customerName ||
+        !customerPhone ||
+        cart.length === 0
     ) {
+        let message = "<h3>Order Not Submitted</h3>";
 
-        instructionsValue =
-            specialInstructions;
+        if (cart.length === 0) {
+            message += "<p>Your cart is empty.</p>";
+        }
+
+        if (!customerName) {
+            message += "<p>Please enter your name.</p>";
+        }
+
+        if (!customerPhone) {
+            message += "<p>Please enter your phone number.</p>";
+        }
+
+        checkoutMessage.innerHTML = message;
+        return;
     }
 
+    for (const item of cart) {
+        if (!item.productId) {
+            checkoutMessage.innerHTML =
+                "<h3>Order Not Submitted</h3>" +
+                "<p>One or more items need to be " +
+                "added again from the updated menu.</p>";
+            return;
+        }
+    }
 
-    var submitted =
-        true;
-
-
-    var order = {
-
-        customerName:
-            customerName,
-
-        phone:
-            customerPhone,
-
-        email:
-            emailValue,
-
-        items:
-            cart,
-
-        orderTotal:
-            total,
-
+    const order = {
+        customerName: customerName,
+        phone: customerPhone,
+        email: customerEmail || null,
         specialInstructions:
-            instructionsValue,
+            specialInstructions || null,
 
-        submitted:
-            submitted
-
+        items: cart.map(function (item) {
+            return {
+                productId: item.productId,
+                quantity: item.quantity,
+                option: item.option || null
+            };
+        })
     };
 
+    const submitButton =
+        document.querySelector(
+            ".checkout-actions button[onclick='submitOrder()']"
+        );
 
-    localStorage.setItem(
-        "smooshLastOrder",
-        JSON.stringify(order)
-    );
+    orderSubmissionInProgress = true;
 
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+    }
 
-    localStorage.removeItem(
-        "smooshCart"
-    );
+    checkoutMessage.innerHTML =
+        "<p>Sending your order to Smoosh...</p>";
 
+    try {
+        const response = await fetch("/api/orders", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(order)
+        });
 
-    window.location.href =
-        "confirmation.html";
+        if (!response.ok) {
+            throw new Error(
+                await readApiError(response)
+            );
+        }
+
+        const result = await response.json();
+
+        if (!result.orderId) {
+            throw new Error(
+                "The server did not return an order number."
+            );
+        }
+
+        localStorage.setItem(
+            "smooshLastOrderId",
+            result.orderId
+        );
+
+        localStorage.removeItem("smooshCart");
+
+        window.location.href =
+            "confirmation.html?orderId=" +
+            encodeURIComponent(result.orderId);
+
+    } catch (error) {
+        console.error(
+            "Smoosh order submission error:",
+            error
+        );
+
+        checkoutMessage.innerHTML =
+            "<h3>Order Not Submitted</h3>" +
+            "<p>" + escapeHTML(error.message) + "</p>" +
+            "<p>Your cart has been preserved. " +
+            "Please correct the problem and try again.</p>";
+
+    } finally {
+        orderSubmissionInProgress = false;
+
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Order";
+        }
+    }
 }
 
 
 /* =========================================
-   ORDER CONFIRMATION PAGE
+   DATABASE-BACKED CONFIRMATION PAGE
+   Project Deliverable 3
    ========================================= */
 
-function displayConfirmation() {
-
-    var confirmationDetails =
+async function displayConfirmation() {
+    const confirmationDetails =
         document.getElementById(
             "confirmationDetails"
         );
 
-
-    if (
-        confirmationDetails === null
-    ) {
-
+    if (!confirmationDetails) {
         return;
     }
 
+    const parameters =
+        new URLSearchParams(window.location.search);
 
-    var savedOrder =
-        localStorage.getItem(
-            "smooshLastOrder"
-        );
+    const orderId =
+        parameters.get("orderId") ||
+        localStorage.getItem("smooshLastOrderId");
 
-
-    if (
-        savedOrder === null
-    ) {
-
+    if (!orderId) {
         confirmationDetails.innerHTML =
             "<h3>No Recent Order Found</h3>" +
-            "<p>Please return to the menu to start a new order.</p>";
-
+            "<p>Please return to the menu " +
+            "to start a new order.</p>";
         return;
     }
 
-
-    var order =
-        JSON.parse(savedOrder);
-
-
-    var confirmationHTML =
-
-        "<h3>Thanks, " +
-        order.customerName +
-        "!</h3>" +
-
-        "<p>Your Smoosh order has been received for pickup.</p>" +
-
-        "<p><strong>Phone:</strong> " +
-        order.phone +
-        "</p>";
-
-
-    if (
-        order.email !== null
-    ) {
-
-        confirmationHTML +=
-
-            "<p><strong>Email:</strong> " +
-            order.email +
-            "</p>";
-    }
-
-
-    confirmationHTML +=
-
-        "<h3>Order Details</h3>";
-
-
-    for (
-        var i = 0;
-        i < order.items.length;
-        i++
-    ) {
-
-        confirmationHTML +=
-
-            "<p>" +
-
-            order.items[i].quantity +
-            " × " +
-            order.items[i].name +
-
-            " - $" +
-            order.items[i].total.toFixed(2) +
-
-            "</p>";
-    }
-
-
-    confirmationHTML +=
-
-        "<p><strong>Order Total: $" +
-        order.orderTotal.toFixed(2) +
-        "</strong></p>";
-
-
-    if (
-        order.specialInstructions !== null
-    ) {
-
-        confirmationHTML +=
-
-            "<p><strong>Special Instructions:</strong> " +
-            order.specialInstructions +
-            "</p>";
-    }
-
-
     confirmationDetails.innerHTML =
-        confirmationHTML;
+        "<p>Retrieving your saved Smoosh order...</p>";
+
+    try {
+        const response = await fetch(
+            "/api/orders/" +
+            encodeURIComponent(orderId)
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                await readApiError(response)
+            );
+        }
+
+        const order = await response.json();
+
+        let confirmationHTML =
+            "<h3>Thanks, " +
+            escapeHTML(order.customerName) +
+            "!</h3>" +
+
+            "<p>Your Smoosh order has been " +
+            "received for pickup.</p>" +
+
+            "<p><strong>Order ID:</strong> " +
+            escapeHTML(String(order._id)) +
+            "</p>" +
+
+            "<p><strong>Status:</strong> " +
+            escapeHTML(order.status || "Received") +
+            "</p>" +
+
+            "<p><strong>Phone:</strong> " +
+            escapeHTML(order.phone) +
+            "</p>";
+
+        if (order.email) {
+            confirmationHTML +=
+                "<p><strong>Email:</strong> " +
+                escapeHTML(order.email) +
+                "</p>";
+        }
+
+        if (order.estimatedReadyAt) {
+            const readyDate =
+                new Date(order.estimatedReadyAt);
+
+            if (!Number.isNaN(readyDate.getTime())) {
+                confirmationHTML +=
+                    "<p><strong>Estimated Ready Time:</strong> " +
+                    escapeHTML(
+                        readyDate.toLocaleTimeString(
+                            "en-US",
+                            {
+                                hour: "numeric",
+                                minute: "2-digit"
+                            }
+                        )
+                    ) +
+                    "</p>" +
+
+                    "<p><em>Pickup time is an estimate " +
+                    "and may change with kitchen demand.</em></p>";
+            }
+        }
+
+        confirmationHTML +=
+            "<h3>Order Details</h3>";
+
+        for (const item of order.items) {
+            confirmationHTML +=
+                "<p>" +
+                item.quantity +
+                " × " +
+                escapeHTML(item.name) +
+                " - $" +
+                formatMoney(item.total) +
+                "</p>";
+        }
+
+        confirmationHTML +=
+            "<p><strong>Order Total: $" +
+            formatMoney(order.orderTotal) +
+            "</strong></p>";
+
+        if (order.specialInstructions) {
+            confirmationHTML +=
+                "<p><strong>Special Instructions:</strong> " +
+                escapeHTML(order.specialInstructions) +
+                "</p>";
+        }
+
+        confirmationHTML +=
+            "<p><strong>Payment:</strong> " +
+            "Not collected — demonstration checkout.</p>";
+
+        confirmationDetails.innerHTML =
+            confirmationHTML;
+
+    } catch (error) {
+        console.error(
+            "Confirmation retrieval error:",
+            error
+        );
+
+        confirmationDetails.innerHTML =
+            "<h3>Unable to Load Confirmation</h3>" +
+            "<p>" + escapeHTML(error.message) + "</p>" +
+            "<p>Your order may have been saved. " +
+            "Please verify the order ID before " +
+            "placing another order.</p>";
+    }
 }
 
 
@@ -962,177 +829,266 @@ function displayConfirmation() {
    ========================================= */
 
 function startNewOrder() {
+    localStorage.removeItem("smooshCart");
+    localStorage.removeItem("smooshLastOrderId");
+    localStorage.removeItem("smooshLastOrder");
 
-    localStorage.removeItem(
-        "smooshCart"
-    );
-
-
-    localStorage.removeItem(
-        "smooshLastOrder"
-    );
-
-
-    window.location.href =
-        "index.html";
+    window.location.href = "index.html";
 }
 
 
 /* =========================================
-   REVIEWS PAGE
+   RETRIEVE APPROVED REVIEWS
+   Project Deliverable 3
    ========================================= */
 
-function submitFeedback() {
+async function loadReviews() {
+    const reviewsList =
+        document.getElementById("reviewsList");
 
-    var customerName =
-        document.getElementById(
-            "customerName"
-        ).value.trim();
-
-
-    var rating =
-        Number(
-            document.getElementById(
-                "rating"
-            ).value
-        );
-
-
-    var feedback =
-        document.getElementById(
-            "feedback"
-        ).value.trim();
-
-
-    var feedbackMessage =
-        document.getElementById(
-            "feedbackMessage"
-        );
-
-
-    var nameValid =
-        customerName !== "";
-
-
-    var ratingValid =
-        rating >= 1 &&
-        rating <= 5;
-
-
-    var feedbackValid =
-        feedback !== "";
-
-
-    var formValid =
-        nameValid &&
-        ratingValid &&
-        feedbackValid;
-
-
-    if (
-        formValid === false
-    ) {
-
-        var errorMessage =
-            "<h3>Feedback Not Submitted</h3>";
-
-
-        if (
-            nameValid === false
-        ) {
-
-            errorMessage +=
-                "<p>Please enter your name.</p>";
-        }
-
-
-        if (
-            ratingValid === false
-        ) {
-
-            errorMessage +=
-                "<p>Please select a rating.</p>";
-        }
-
-
-        if (
-            feedbackValid === false
-        ) {
-
-            errorMessage +=
-                "<p>Please enter your feedback.</p>";
-        }
-
-
-        feedbackMessage.innerHTML =
-            errorMessage;
-
-
+    if (!reviewsList) {
         return;
     }
 
+    reviewsList.innerHTML =
+        "<p>Loading customer reviews...</p>";
 
-    var review = {
+    try {
+        const response = await fetch("/api/reviews");
 
-        customerName:
-            customerName,
+        if (!response.ok) {
+            throw new Error(
+                await readApiError(response)
+            );
+        }
 
-        rating:
-            rating,
+        const reviews = await response.json();
 
-        feedback:
-            feedback,
+        if (!Array.isArray(reviews)) {
+            throw new Error(
+                "The server returned invalid review data."
+            );
+        }
 
-        approved:
-            false
+        if (reviews.length === 0) {
+            reviewsList.innerHTML =
+                "<p>No approved reviews yet. " +
+                "Be the first to share your experience!</p>";
+            return;
+        }
 
-    };
+        let reviewsHTML = "";
 
+        for (const review of reviews) {
+            const name = escapeHTML(
+                review.customerName || "Smoosh Customer"
+            );
 
-    localStorage.setItem(
-        "smooshLastReview",
-        JSON.stringify(review)
-    );
+            const rating = Number(review.rating);
 
+            const feedback =
+                escapeHTML(review.feedback || "");
 
-    feedbackMessage.innerHTML =
+            const productName = review.productName
+                ? escapeHTML(review.productName)
+                : "";
 
-        "<h3>Thank you for your feedback, " +
-        customerName +
-        "!</h3>" +
+            reviewsHTML += `
+                <div class="review-card">
 
-        "<p><strong>Rating:</strong> " +
-        rating +
-        "/5</p>" +
+                    <h3>${name}</h3>
 
-        "<p><strong>Your Feedback:</strong> " +
-        feedback +
-        "</p>" +
+                    <p class="review-rating">
+                        Rating: ${rating}/5
+                    </p>
 
-        "<p>Your review has been received.</p>";
+                    ${productName
+                        ? `<p><strong>Product:</strong> ${productName}</p>`
+                        : ""}
 
+                    <p>${feedback}</p>
 
-    document.getElementById(
-        "customerName"
-    ).value =
-        "";
+                </div>
+            `;
+        }
 
+        reviewsList.innerHTML = reviewsHTML;
 
-    document.getElementById(
-        "rating"
-    ).value =
-        "";
+    } catch (error) {
+        console.error(
+            "Review loading error:",
+            error
+        );
 
-
-    document.getElementById(
-        "feedback"
-    ).value =
-        "";
+        reviewsList.innerHTML =
+            "<p>Unable to load customer reviews. " +
+            "Please try refreshing the page.</p>";
+    }
 }
 
 
 /* =========================================
-   PAGE LOAD
+   SUBMIT CUSTOMER FEEDBACK
+   Project Deliverable 3
+   ========================================= */
+
+let reviewSubmissionInProgress = false;
+
+async function submitFeedback() {
+    if (reviewSubmissionInProgress) {
+        return;
+    }
+
+    const customerName =
+        document.getElementById("customerName")
+            .value.trim();
+
+    const ratingValue =
+        document.getElementById("rating").value;
+
+    const rating = Number(ratingValue);
+
+    const feedback =
+        document.getElementById("feedback")
+            .value.trim();
+
+    const feedbackMessage =
+        document.getElementById("feedbackMessage");
+
+    const submitButton =
+        document.getElementById("submitReviewButton");
+
+    // Validate required information.
+
+    const nameValid =
+        customerName.length > 0 &&
+        customerName.length <= 100;
+
+    const ratingValid =
+        ratingValue !== "" &&
+        Number.isInteger(rating) &&
+        rating >= 1 &&
+        rating <= 5;
+
+    const feedbackValid =
+        feedback.length > 0 &&
+        feedback.length <= 2000;
+
+    if (
+        !nameValid ||
+        !ratingValid ||
+        !feedbackValid
+    ) {
+        let message =
+            "<h3>Feedback Not Submitted</h3>";
+
+        if (!nameValid) {
+            message +=
+                "<p>Please enter a valid name.</p>";
+        }
+
+        if (!ratingValid) {
+            message +=
+                "<p>Please select a rating from 1 to 5.</p>";
+        }
+
+        if (!feedbackValid) {
+            message +=
+                "<p>Please enter feedback " +
+                "between 1 and 2000 characters.</p>";
+        }
+
+        feedbackMessage.innerHTML = message;
+        return;
+    }
+
+    const review = {
+        customerName: customerName,
+        rating: rating,
+        feedback: feedback
+    };
+
+    reviewSubmissionInProgress = true;
+
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+    }
+
+    feedbackMessage.innerHTML =
+        "<p>Sending your review to Smoosh...</p>";
+
+    try {
+        const response = await fetch("/api/reviews", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(review)
+        });
+
+        if (!response.ok) {
+            throw new Error(
+                await readApiError(response)
+            );
+        }
+
+        const result = await response.json();
+
+        feedbackMessage.innerHTML =
+            "<h3>Thank You for Your Feedback!</h3>" +
+            "<p>Thanks, " +
+            escapeHTML(customerName) +
+            "!</p>" +
+            "<p><strong>Rating:</strong> " +
+            rating +
+            "/5</p>" +
+            "<p>Your review was saved successfully " +
+            "and is awaiting approval.</p>";
+
+        // Clear inputs only after confirmed
+        // successful database insertion.
+
+        document.getElementById("customerName")
+            .value = "";
+
+        document.getElementById("rating")
+            .value = "";
+
+        document.getElementById("feedback")
+            .value = "";
+
+        // The review remains unapproved and
+        // therefore will not yet appear in
+        // the public review list.
+
+    } catch (error) {
+        console.error(
+            "Review submission error:",
+            error
+        );
+
+        feedbackMessage.innerHTML =
+            "<h3>Feedback Not Submitted</h3>" +
+            "<p>" +
+            escapeHTML(error.message) +
+            "</p>" +
+            "<p>Your feedback remains in the form. " +
+            "Please try again if it was not saved.</p>";
+
+    } finally {
+        reviewSubmissionInProgress = false;
+
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Review";
+        }
+    }
+}
+
+
+/* =========================================
+   PAGE INITIALIZATION
    ========================================= */
 
 document.addEventListener(
@@ -1147,84 +1103,9 @@ document.addEventListener(
 
         displayConfirmation();
 
-    }
-);
-
-
-/* =========================================
-   PROJECT DELIVERABLE 2
-   DYNAMIC NAVIGATION CART COUNTER
-   ========================================= */
-
-/*
-   Updates the cart quantity displayed in
-   the persistent navigation.
-
-   Counts total product quantities, not
-   just the number of unique products.
-*/
-
-function updateNavCartCount() {
-
-    const cartCountElement =
-        document.getElementById("cartCount");
-
-    // Some pages may not have the counter yet.
-    if (cartCountElement === null) {
-        return;
-    }
-
-    // Retrieve cart from localStorage.
-    const cart = getCart();
-
-    // Use our existing cart quantity function.
-    const totalQuantity = getCartItemCount(cart);
-
-    // Update the navigation text.
-    cartCountElement.textContent = totalQuantity;
-}
-
-
-/* =========================================
-   UPDATE COUNTER WHEN CART IS SAVED
-   ========================================= */
-
-// Preserve the original saveCart function.
-const originalSaveCart = saveCart;
-
-// Extend it to refresh the navigation.
-saveCart = function(cart) {
-
-    originalSaveCart(cart);
-
-    updateNavCartCount();
-};
-
-
-/* =========================================
-   UPDATE COUNTER WHEN CART IS CLEARED
-   ========================================= */
-
-// Preserve the original clearCart function.
-const originalClearCart = clearCart;
-
-clearCart = function() {
-
-    originalClearCart();
-
-    updateNavCartCount();
-};
-
-
-/* =========================================
-   INITIALIZE COUNTER ON PAGE LOAD
-   ========================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
         updateNavCartCount();
+
+        loadReviews();
 
     }
 );

@@ -1,0 +1,580 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Discover Smoosh Food Truck. Big flavor, less waiting. Explore smashburgers, loaded hot dogs, fries, and drinks, and order ahead for pickup.">
+
+    <title>Smoosh Food Truck | Welcome</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!--
+    =========================================
+    PROJECT DELIVERABLE 3
+    SMOOSH LANDING PAGE
+    =========================================
+    -->
+
+    <style>
+
+        /* LANDING PAGE MAIN CONTAINER */
+
+        .landing-main {
+            width: 94%;
+            max-width: 1200px;
+            margin: 28px auto 50px;
+        }
+
+        /* HERO SECTION */
+
+        .landing-hero {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            align-items: center;
+            gap: 35px;
+
+            padding: 40px;
+            text-align: left;
+        }
+
+        .hero-content {
+            text-align: left;
+        }
+
+        .hero-eyebrow {
+            color: var(--green);
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-content h2 {
+            font-size: clamp(2rem, 4vw, 3.4rem);
+            line-height: 1.15;
+            margin: 16px 0 22px;
+            text-align: left;
+        }
+
+        .hero-content h2 span {
+            color: var(--green);
+        }
+
+        .hero-description {
+            color: var(--text);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .hero-supporting-text {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* HERO IMAGE */
+
+        .hero-image {
+            width: 100%;
+            border: 3px solid var(--teal);
+
+            box-shadow:
+                0 0 0 5px #101418,
+                0 0 30px rgba(47, 111, 103, 0.35);
+        }
+
+        .hero-image img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* PRIMARY CALL TO ACTION */
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .hero-actions .button-link {
+            margin: 0;
+            padding: 16px 28px;
+        }
+
+        .hero-secondary-link {
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* HOW IT WORKS */
+
+        .how-it-works {
+            padding: 35px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-top: 30px;
+        }
+
+        .step-card {
+            background: #10161a;
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--teal);
+
+            padding: 26px 22px;
+            text-align: center;
+        }
+
+        .step-number {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 52px;
+            height: 52px;
+
+            border: 2px solid var(--orange);
+            border-radius: 50%;
+
+            color: var(--orange);
+            font-size: 1.4rem;
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+        .step-card h3 {
+            margin: 8px 0 12px;
+        }
+
+        .step-card p {
+            color: var(--muted);
+            margin-bottom: 0;
+        }
+
+        /* SMOOSH STORY */
+
+        .smoosh-story {
+            max-width: 1050px;
+            padding: 38px;
+        }
+
+        .smoosh-story p {
+            max-width: 800px;
+            margin: 16px auto;
+            line-height: 1.85;
+            font-size: 1.05rem;
+        }
+
+        /* FINAL CALL TO ACTION */
+
+        .landing-final-cta {
+            padding: 38px 25px;
+        }
+
+        .landing-final-cta p {
+            max-width: 700px;
+            margin: 15px auto 25px;
+        }
+
+        .landing-final-cta .button-link {
+            margin: 8px auto;
+        }
+
+        /* DEMONSTRATION NOTICE */
+
+        .demo-notice {
+            color: var(--muted);
+            text-align: center;
+            font-size: 0.85rem;
+            max-width: 850px;
+            margin: 28px auto 0;
+            line-height: 1.6;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 900px) {
+
+            .landing-hero {
+                grid-template-columns: 1fr;
+                padding: 28px;
+                gap: 28px;
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .hero-content h2 {
+                text-align: center;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .hero-image {
+                max-width: 650px;
+                margin: 0 auto;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .landing-main {
+                margin-top: 18px;
+            }
+
+            .landing-hero,
+            .how-it-works,
+            .smoosh-story,
+            .landing-final-cta {
+                padding: 24px 18px;
+            }
+
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .hero-actions .button-link {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =====================================
+         HEADER / BRANDING
+         ===================================== -->
+
+    <header>
+
+        <h1>SMOOSH</h1>
+
+        <p>Burgers. Dogs. Smooshed Right.</p>
+
+    </header>
+
+
+    <!-- =====================================
+         MAIN NAVIGATION
+         ===================================== -->
+
+    <nav class="main-nav"
+         aria-label="Main navigation">
+
+        <a href="home.html" class="active">
+            Home
+        </a>
+
+        <a href="index.html">
+            Menu
+        </a>
+
+        <a href="cart.html" id="cartNav">
+            CART (<span id="cartCount">0</span>)
+        </a>
+
+        <a href="reviews.html">
+            Reviews
+        </a>
+
+    </nav>
+
+
+    <main class="landing-main">
+
+        <!-- =================================
+             HERO / INTRODUCTION
+             ================================= -->
+
+        <section class="landing-hero">
+
+            <div class="hero-content">
+
+                <p class="hero-eyebrow">
+                    Corpus Christi, Texas
+                </p>
+
+                <h2>
+                    BIG FLAVOR.
+                    <span>LESS WAITING.</span>
+                </h2>
+
+                <p class="hero-description">
+                    Welcome to Smoosh, a food truck
+                    concept built around one simple
+                    idea: great food should be worth
+                    the trip, not the wait.
+                </p>
+
+                <p class="hero-supporting-text">
+                    We're bringing bold smashburgers,
+                    loaded hot dogs, crispy fries,
+                    and ice-cold drinks together
+                    with a convenient order-ahead
+                    experience.
+                </p>
+
+                <p class="hero-supporting-text">
+                    Browse the menu, choose your
+                    favorites, and submit your order
+                    before heading to the truck.
+                    We'll give you an estimated
+                    pickup-ready time so you can
+                    spend less time waiting and
+                    more time enjoying your food.
+                </p>
+
+                <div class="hero-actions">
+
+                    <a href="index.html"
+                       class="button-link">
+                        Start Your Order
+                    </a>
+
+                    <a href="reviews.html"
+                       class="hero-secondary-link">
+                        See Customer Reviews
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="hero-image">
+
+                <img
+                    src="images/thesmoosh.png"
+                    alt="The Smoosh signature smashburger with melted cheese, grilled onions, pickles, and Smoosh sauce"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             HOW IT WORKS
+             ================================= -->
+
+        <section class="how-it-works">
+
+            <h2>
+                HOW SMOOSH WORKS
+            </h2>
+
+            <p class="page-intro">
+                Three simple steps between you
+                and your next Smoosh meal.
+            </p>
+
+            <div class="steps-grid">
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <h3>Explore the Menu</h3>
+
+                    <p>
+                        Check out our burgers,
+                        dogs, sides, and drinks.
+                        Choose what sounds good
+                        and build your meal.
+                    </p>
+
+                </div>
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <h3>Place Your Order</h3>
+
+                    <p>
+                        Select your quantities,
+                        choose your drinks,
+                        review your cart,
+                        and submit your
+                        pickup order.
+                    </p>
+
+                </div>
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <h3>Pick Up & Enjoy</h3>
+
+                    <p>
+                        Receive your order
+                        confirmation and estimated
+                        ready time. Spend less
+                        time waiting in line.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             OUR STORY / VALUE PROPOSITION
+             ================================= -->
+
+        <section class="smoosh-story">
+
+            <h2>
+                MORE THAN JUST A BURGER
+            </h2>
+
+            <p>
+                Smoosh started with a love for
+                great food and the dream of
+                building a food truck with
+                its own personality.
+            </p>
+
+            <p>
+                We want to create an experience
+                that's straightforward,
+                satisfying, and a little
+                different. Big flavors,
+                memorable menu items,
+                and food worth coming back for.
+            </p>
+
+            <p>
+                But great food is only half
+                the experience. We also
+                know that nobody wants
+                to spend their lunch break
+                standing in a long line.
+            </p>
+
+            <p>
+                That's why the Smoosh web
+                application is designed to
+                let customers explore the
+                menu and build their orders
+                ahead of time.
+            </p>
+
+            <p>
+                <strong>
+                    Our goal is simple:
+                    make getting great
+                    food as enjoyable
+                    as eating it.
+                </strong>
+            </p>
+
+        </section>
+
+
+        <!-- =================================
+             FINAL CALL TO ACTION
+             ================================= -->
+
+        <section class="landing-final-cta">
+
+            <h2>
+                READY TO GET SMOOSHED?
+            </h2>
+
+            <p>
+                Your next favorite burger,
+                loaded dog, or order
+                of crispy fries is waiting
+                on the menu.
+            </p>
+
+            <a href="index.html"
+               class="button-link">
+                Start Your Order
+            </a>
+
+        </section>
+
+
+        <!-- =================================
+             DEMONSTRATION NOTICE
+             ================================= -->
+
+        <p class="demo-notice">
+            Smoosh is currently a food truck
+            business concept and academic
+            web application demonstration.
+            Orders submitted through this
+            prototype are not fulfilled,
+            and no online payments are collected.
+        </p>
+
+    </main>
+
+
+    <!-- =====================================
+         FOOTER
+         ===================================== -->
+
+    <footer>
+
+        <p>
+            Smoosh Food Truck |
+            Corpus Christi, Texas
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================
+         JAVASCRIPT
+         ===================================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
