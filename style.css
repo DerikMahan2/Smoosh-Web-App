@@ -1,4 +1,3 @@
-
 /* =========================================
    SMOOSH FOOD TRUCK
    Project Deliverable 2
@@ -1046,64 +1045,211 @@ footer p {
 
 
 /* =========================================
-   PROJECT DELIVERABLE 2
-   STICKY HEADER AND NAVIGATION
-   MENU PAGE ONLY
+   PROJECT DELIVERABLE 3
+   RESPONSIVE FIXED HEADER / NAVIGATION
+   ALL PAGES — FINAL QA REFINEMENT
    ========================================= */
 
-/* Keep the Smoosh header visible while scrolling */
-
-body:has(.menu-section) header {
+/* Desktop and tablet: keep the established full-width branding. */
+header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    right: 0;
     height: 122px;
     z-index: 1001;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     padding: 15px 20px;
 }
 
-/* Lock navigation directly below header */
-
-body:has(.menu-section) .main-nav {
+.main-nav {
     position: fixed;
     top: 122px;
     left: 0;
-    width: 100%;
+    right: 0;
+    min-height: 67px;
     z-index: 1000;
-
-    box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.45);
 }
 
-/* Prevent menu from hiding underneath header */
+/* Fixed header and navigation are outside normal document flow. */
+body {
+    padding-top: 189px;
+}
 
+/* Supersede the original menu-only padding, without changing the menu. */
 body:has(.menu-section) main {
-    padding-top: 180px;
+    padding-top: 0;
 }
 
-/* =========================================
-   MOBILE ADJUSTMENTS
-   ========================================= */
+/* Anchored sections and focused elements need room below the fixed bars. */
+html {
+    scroll-padding-top: 205px;
+}
 
+main section,
+main [id] {
+    scroll-margin-top: 205px;
+}
+
+/* Phones and smaller screens: one-row nav and smaller brand block. */
 @media (max-width: 700px) {
-
-    body:has(.menu-section) header {
-        height: 105px;
+    header {
+        height: 76px;
+        padding: 7px 10px;
     }
 
-    body:has(.menu-section) .main-nav {
-        top: 105px;
+    header h1 {
+        font-size: 1.85rem;
+        letter-spacing: 4px;
+        line-height: 1.15;
     }
 
-    body:has(.menu-section) main {
-        padding-top: 305px;
+    header p {
+        margin-top: 3px;
+        font-size: 0.68rem;
+        letter-spacing: 0.6px;
+        text-align: center;
+    }
+
+    .main-nav {
+        top: 76px;
+        height: 48px;
+        min-height: 48px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0;
+        padding: 3px 5px;
+        align-items: center;
+    }
+
+    .main-nav a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        height: 40px;
+        padding: 5px 1px;
+        font-size: 0.72rem;
+        letter-spacing: 0.25px;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    body {
+        padding-top: 124px;
+    }
+
+    html {
+        scroll-padding-top: 136px;
+    }
+
+    main section,
+    main [id] {
+        scroll-margin-top: 136px;
+    }
+
+    main,
+    .landing-main {
+        width: 96%;
+    }
+}
+
+/* Narrower phones: fit every navigation label without clipping. */
+@media (max-width: 350px) {
+    .main-nav a {
+        font-size: 0.66rem;
+        letter-spacing: 0;
+    }
+}
+
+/* Landscape phones have limited height; preserve more room for content.
+   Applies to short, landscape viewports without changing regular tablets. */
+@media (orientation: landscape) and (max-height: 500px) and (min-width: 701px) {
+    header {
+        height: 65px;
+        padding: 4px 12px;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+        letter-spacing: 5px;
+        line-height: 1.1;
+    }
+
+    header p {
+        margin-top: 1px;
+        font-size: 0.72rem;
+    }
+
+    .main-nav {
+        top: 65px;
+        min-height: 42px;
+        padding: 2px 8px;
+        gap: 10px;
+    }
+
+    .main-nav a {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+
+    body {
+        padding-top: 107px;
+    }
+
+    html {
+        scroll-padding-top: 119px;
+    }
+
+    main section,
+    main [id] {
+        scroll-margin-top: 119px;
+    }
+}
+
+/* Shorter landscape phones at <=700 CSS px wide. */
+@media (orientation: landscape) and (max-height: 500px) and (max-width: 700px) {
+    header {
+        height: 60px;
+        padding: 4px 8px;
+    }
+
+    header h1 {
+        font-size: 1.55rem;
+    }
+
+    header p {
+        font-size: 0.62rem;
+    }
+
+    .main-nav {
+        top: 60px;
+        height: 42px;
+        min-height: 42px;
+        padding: 1px 5px;
+    }
+
+    .main-nav a {
+        height: 36px;
+    }
+
+    body {
+        padding-top: 102px;
+    }
+
+    html {
+        scroll-padding-top: 114px;
+    }
+
+    main section,
+    main [id] {
+        scroll-margin-top: 114px;
     }
 }
 

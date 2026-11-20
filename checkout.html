@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Smoosh - Checkout</title>
 
@@ -13,25 +14,28 @@
 <body>
 
     <!-- =========================================
-         HEADER
+         HEADER / BRANDING
          ========================================= -->
 
     <header>
-
         <h1>SMOOSH</h1>
 
         <p>
             Burgers. Dogs. Smooshed Right.
         </p>
-
     </header>
 
 
     <!-- =========================================
-         NAVIGATION
+         MAIN NAVIGATION
          ========================================= -->
 
-    <nav class="main-nav">
+    <nav class="main-nav"
+         aria-label="Main navigation">
+
+        <a href="home.html">
+            Home
+        </a>
 
         <a href="index.html">
             Menu
@@ -56,23 +60,18 @@
 
         <section>
 
-            <h2>
-                Checkout
-            </h2>
+            <h2>Checkout</h2>
 
             <p class="page-intro">
-                Enter the information we can use to identify your pickup order.
+                Enter the information we can use
+                to identify your pickup order.
             </p>
 
 
             <!-- ORDER SUMMARY -->
 
             <div id="checkoutSummary">
-
-                <p>
-                    Loading your order...
-                </p>
-
+                <p>Loading your order...</p>
             </div>
 
 
@@ -90,6 +89,8 @@
                     type="text"
                     id="customerName"
                     placeholder="Enter your name"
+                    maxlength="100"
+                    autocomplete="name"
                 >
 
 
@@ -101,6 +102,8 @@
                     type="tel"
                     id="customerPhone"
                     placeholder="361-555-1234"
+                    maxlength="25"
+                    autocomplete="tel"
                 >
 
 
@@ -112,6 +115,8 @@
                     type="email"
                     id="customerEmail"
                     placeholder="name@example.com"
+                    maxlength="254"
+                    autocomplete="email"
                 >
 
 
@@ -122,6 +127,7 @@
                 <textarea
                     id="specialInstructions"
                     rows="5"
+                    maxlength="1000"
                     placeholder="Allergies, modifications, or other instructions"
                 ></textarea>
 
@@ -134,16 +140,13 @@
 
                 <button
                     type="button"
-                    onclick="backToCart()"
-                >
+                    onclick="backToCart()">
                     Back to Cart
                 </button>
 
-
                 <button
                     type="button"
-                    onclick="submitOrder()"
-                >
+                    onclick="submitOrder()">
                     Submit Order
                 </button>
 
@@ -152,7 +155,10 @@
 
             <!-- VALIDATION / STATUS MESSAGE -->
 
-            <div id="checkoutMessage"></div>
+            <div id="checkoutMessage"
+                 role="status"
+                 aria-live="polite">
+            </div>
 
         </section>
 
@@ -164,11 +170,9 @@
          ========================================= -->
 
     <footer>
-
         <p>
             Smoosh Food Truck | Corpus Christi, Texas
         </p>
-
     </footer>
 
 

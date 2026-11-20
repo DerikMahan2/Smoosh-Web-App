@@ -1,0 +1,15 @@
+# Node.js dependencies
+node_modules/
+
+# Local environment configuration
+.env
+.env.*
+!.env.example
+
+# Application logs
+*.log
+npm-debug.log*
+
+# Operating system files
+.DS_Store
+Thumbs.db

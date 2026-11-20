@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Smoosh - Reviews & Feedback</title>
 
@@ -13,25 +15,28 @@
 <body>
 
     <!-- =========================================
-         HEADER
+         HEADER / BRANDING
          ========================================= -->
 
     <header>
-
         <h1>SMOOSH</h1>
 
         <p>
             Burgers. Dogs. Smooshed Right.
         </p>
-
     </header>
 
 
     <!-- =========================================
-         NAVIGATION
+         MAIN NAVIGATION
          ========================================= -->
 
-    <nav class="main-nav">
+    <nav class="main-nav"
+         aria-label="Main navigation">
+
+        <a href="home.html">
+            Home
+        </a>
 
         <a href="index.html">
             Menu
@@ -39,12 +44,10 @@
 
         <a href="cart.html" id="cartNav">
             CART (<span id="cartCount">0</span>)
-</a>
+        </a>
 
-        <a
-            href="reviews.html"
-            class="active"
-        >
+        <a href="reviews.html" class="active"
+           aria-current="page">
             Reviews
         </a>
 
@@ -57,9 +60,8 @@
 
     <main>
 
-
         <!-- =====================================
-             EXISTING REVIEWS
+             CUSTOMER REVIEWS FROM MONGODB
              ===================================== -->
 
         <section>
@@ -69,42 +71,20 @@
             </h2>
 
             <p class="page-intro">
-                See what customers have said about their Smoosh experience.
+                See what customers have said about
+                their Smoosh experience.
             </p>
 
+            <!--
+                Approved customer reviews are
+                retrieved from GET /api/reviews
+                and displayed by script.js.
+            -->
 
-            <div class="review-card">
+            <div id="reviewsList"
+                 aria-live="polite">
 
-                <h3>
-                    Mike R.
-                </h3>
-
-                <p class="review-rating">
-                    Rating: 5/5
-                </p>
-
-                <p>
-                    The Smoosh was awesome. The crispy edges on the burger,
-                    grilled onions, and sauce worked perfectly together.
-                </p>
-
-            </div>
-
-
-            <div class="review-card">
-
-                <h3>
-                    Sarah T.
-                </h3>
-
-                <p class="review-rating">
-                    Rating: 5/5
-                </p>
-
-                <p>
-                    Great burger and easy ordering experience.
-                    I would definitely order from Smoosh again.
-                </p>
+                <p>Loading customer reviews...</p>
 
             </div>
 
@@ -112,7 +92,7 @@
 
 
         <!-- =====================================
-             FEEDBACK FORM
+             CUSTOMER FEEDBACK FORM
              ===================================== -->
 
         <section>
@@ -122,12 +102,12 @@
             </h2>
 
             <p class="page-intro">
-                Tell us how your Smoosh experience went.
+                Tell us how your Smoosh experience
+                went. Your feedback helps us
+                keep serving better food.
             </p>
 
-
             <div class="review-form">
-
 
                 <label for="customerName">
                     Name:
@@ -136,9 +116,10 @@
                 <input
                     type="text"
                     id="customerName"
+                    maxlength="100"
+                    autocomplete="name"
                     placeholder="Enter your name"
                 >
-
 
                 <label for="rating">
                     Rating:
@@ -172,7 +153,6 @@
 
                 </select>
 
-
                 <label for="feedback">
                     Feedback:
                 </label>
@@ -180,19 +160,28 @@
                 <textarea
                     id="feedback"
                     rows="5"
+                    maxlength="2000"
                     placeholder="Tell us about your experience"
                 ></textarea>
 
-
                 <button
                     type="button"
-                    onclick="submitFeedback()"
-                >
+                    id="submitReviewButton"
+                    onclick="submitFeedback()">
+
                     Submit Review
+
                 </button>
 
+                <div id="feedbackMessage"
+                     role="status"
+                     aria-live="polite">
+                </div>
 
-                <div id="feedbackMessage"></div>
+                <p class="page-intro">
+                    New reviews are submitted for
+                    approval before appearing publicly.
+                </p>
 
             </div>
 
@@ -210,18 +199,18 @@
             </h2>
 
             <p>
-                Head back to the menu and start your next Smoosh order.
+                Head back to the menu and start
+                your next Smoosh order.
             </p>
 
-            <a
-                href="index.html"
-                class="button-link"
-            >
+            <a href="index.html"
+               class="button-link">
+
                 Return to Menu
+
             </a>
 
         </section>
-
 
     </main>
 
@@ -231,11 +220,9 @@
          ========================================= -->
 
     <footer>
-
         <p>
             Smoosh Food Truck | Corpus Christi, Texas
         </p>
-
     </footer>
 
 
