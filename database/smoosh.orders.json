@@ -1,28 +1,147 @@
-
-[
-  {
-    "_id": {
-      "$oid": "6abff8191cca33177e42794c"
+[{
+  "_id": {
+    "$oid": "6abff8191cca33177e42794c"
+  },
+  "customerName": "Sample Customer",
+  "phone": "361-555-1234",
+  "email": null,
+  "items": [
+    {
+      "name": "The Smoosh",
+      "quantity": 2,
+      "price": 8.99,
+      "total": 17.98
     },
-    "customerName": "Sample Customer",
-    "phone": "361-555-1234",
-    "email": null,
-    "items": [
-      {
-        "name": "The Smoosh",
-        "quantity": 2,
-        "price": 8.99,
-        "total": 17.98
-      },
-      {
-        "name": "The Crawler",
-        "quantity": 1,
-        "price": 7.99,
-        "total": 7.99
-      }
-    ],
-    "orderTotal": 25.97,
-    "specialInstructions": "No pickles on one burger.",
-    "submitted": true
-  }
-]
+    {
+      "name": "The Crawler",
+      "quantity": 1,
+      "price": 7.99,
+      "total": 7.99
+    }
+  ],
+  "orderTotal": 25.97,
+  "specialInstructions": "No pickles on one burger.",
+  "submitted": true
+},
+{
+  "_id": {
+    "$oid": "6b00628a934054b2e21093c2"
+  },
+  "customerName": "Smoosh Test Customer",
+  "phone": "361-555-1234",
+  "email": null,
+  "specialInstructions": "Test order for Deliverable 3",
+  "items": [
+    {
+      "productId": "6b005c10cb32642ee1a6c8a4",
+      "name": "Canned Drinks - Dr Pepper",
+      "option": "Dr Pepper",
+      "quantity": 2,
+      "price": 1.99,
+      "total": 3.98
+    },
+    {
+      "productId": "6abff76e1cca33177e427943",
+      "name": "The Smoosh",
+      "option": null,
+      "quantity": 1,
+      "price": 8.99,
+      "total": 8.99
+    },
+    {
+      "productId": "6b005be6cb32642ee1a6c8a2",
+      "name": "Loaded Smoosh Fries",
+      "option": null,
+      "quantity": 1,
+      "price": 5.99,
+      "total": 5.99
+    }
+  ],
+  "orderTotal": 18.96,
+  "submitted": true,
+  "status": "Received",
+  "createdAt": {
+    "$date": "2026-11-20T15:08:58.476Z"
+  },
+  "estimatedReadyAt": {
+    "$date": "2026-11-20T15:28:58.476Z"
+  },
+  "paymentStatus": "Not Collected"
+},
+{
+  "_id": {
+    "$oid": "6b006f91a62b746bf8fadaa0"
+  },
+  "customerName": "Smoosh Test Customer 2",
+  "phone": "555-123-4567",
+  "email": null,
+  "specialInstructions": "Extra Cheese",
+  "items": [
+    {
+      "productId": "6abff76e1cca33177e427943",
+      "name": "The Smoosh",
+      "option": null,
+      "quantity": 1,
+      "price": 8.99,
+      "total": 8.99
+    },
+    {
+      "productId": "6abff7a11cca33177e427945",
+      "name": "The Double Smoosh",
+      "option": null,
+      "quantity": 1,
+      "price": 11.99,
+      "total": 11.99
+    },
+    {
+      "productId": "6abff7ba1cca33177e427949",
+      "name": "The Crawler",
+      "option": null,
+      "quantity": 1,
+      "price": 7.99,
+      "total": 7.99
+    },
+    {
+      "productId": "6b005b9acb32642ee1a6c8a0",
+      "name": "Smoosh Fries",
+      "option": null,
+      "quantity": 2,
+      "price": 3.49,
+      "total": 6.98
+    },
+    {
+      "productId": "6b005be6cb32642ee1a6c8a2",
+      "name": "Loaded Smoosh Fries",
+      "option": null,
+      "quantity": 1,
+      "price": 5.99,
+      "total": 5.99
+    },
+    {
+      "productId": "6b005c10cb32642ee1a6c8a4",
+      "name": "Canned Drinks - Coke",
+      "option": "Coke",
+      "quantity": 1,
+      "price": 1.99,
+      "total": 1.99
+    },
+    {
+      "productId": "6b005c10cb32642ee1a6c8a4",
+      "name": "Canned Drinks - Dr Pepper",
+      "option": "Dr Pepper",
+      "quantity": 1,
+      "price": 1.99,
+      "total": 1.99
+    }
+  ],
+  "orderTotal": 45.92,
+  "submitted": true,
+  "status": "Received",
+  "createdAt": {
+    "$date": "2026-11-20T16:04:33.545Z"
+  },
+  "estimatedReadyAt": {
+    "$date": "2026-11-20T16:24:33.545Z"
+  },
+  "paymentStatus": "Not Collected"
+}]

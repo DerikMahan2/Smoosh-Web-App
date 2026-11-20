@@ -17,4 +17,30 @@
   "feedback": "Great burger and easy ordering experience. I would definitely order from Smoosh again.",
   "productName": "The Smoosh",
   "approved": true
+},
+{
+  "_id": {
+    "$oid": "6b00667d6c38a97d2c25dd18"
+  },
+  "customerName": "Smoosh Test Reviewer",
+  "rating": 5,
+  "feedback": "The loaded fries were awesome, and ordering ahead made pickup quick and easy. Great experience!",
+  "productName": "Smoosh Food Truck",
+  "approved": true,
+  "createdAt": {
+    "$date": "2026-11-20T15:25:49.719Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6b006fbda62b746bf8fadaa1"
+  },
+  "customerName": "Smoosh Test Customer 2",
+  "rating": 5,
+  "feedback": "What a great place. Love the food here.",
+  "productName": "Smoosh Food Truck",
+  "approved": false,
+  "createdAt": {
+    "$date": "2026-11-20T16:05:17.041Z"
+  }
 }]

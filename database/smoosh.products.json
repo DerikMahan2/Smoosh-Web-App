@@ -41,4 +41,44 @@
   "price": 7.99,
   "available": true,
   "image": "images/thecrawler.png"
+},
+{
+  "_id": {
+    "$oid": "6b005b9acb32642ee1a6c8a0"
+  },
+  "name": "Smoosh Fries",
+  "description": "Golden, crispy, seasoned fries served hot and fresh. The perfect sidekick to any Smoosh burger or dog.",
+  "category": "Side",
+  "price": 3.49,
+  "available": true,
+  "image": "images/smooshfries.png"
+},
+{
+  "_id": {
+    "$oid": "6b005be6cb32642ee1a6c8a2"
+  },
+  "name": "Loaded Smoosh Fries",
+  "description": "Crispy fries topped with melted cheese, bacon, and Smoosh sauce for a richer, more indulgent side.",
+  "category": "Side",
+  "price": 5.99,
+  "available": true,
+  "image": "images/loadedsmooshfries.png"
+},
+{
+  "_id": {
+    "$oid": "6b005c10cb32642ee1a6c8a4"
+  },
+  "name": "Canned Drinks",
+  "description": "An ice-cold drink to go with your Smoosh meal. Choose from Coke, Diet Coke, Dr Pepper, Sprite, or bottled water.",
+  "category": "Drink",
+  "price": 1.99,
+  "available": true,
+  "image": "images/canneddrinks.png",
+  "options": [
+    "Coke",
+    "Diet Coke",
+    "Dr Pepper",
+    "Sprite",
+    "Bottled Water"
+  ]
 }]
